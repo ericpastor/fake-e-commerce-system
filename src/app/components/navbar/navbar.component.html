@@ -1,0 +1,77 @@
+<mat-toolbar class="pre-toolbar">
+  <mat-icon @zoomin>directions_boat</mat-icon>
+
+  <span class="second-spacer"></span>
+
+  <div class="pre-toolbar-links">
+    <a mat-button href="https://www.google.com/" target="_blank">Contact us</a>
+    <a mat-button href="https://www.google.com/" target="_blank">Help</a>
+    <a mat-button routerLink="/login">Join us</a>
+  </div>
+</mat-toolbar>
+
+<mat-toolbar class="toolbar">
+  <div class="navbar">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu">
+      <mat-icon><span class="material-symbols-outlined"> menu </span></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+    <div class="button-row">
+      <a mat-button href="https://www.google.com/" target="_blank"
+        >Categories</a
+      >
+      <a mat-button href="https://www.google.com/" target="_blank">Products</a>
+    </div>
+  </div>
+  <span class="first-spacer"></span>
+
+  <button
+    mat-icon-button
+    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+    class="example-button"
+  >
+    <mat-icon
+      ><span class="material-symbols-outlined"> shopping_bag </span></mat-icon
+    >
+  </button>
+  <span class="name">Fakee-commerce</span>
+
+  <span class="second-spacer"></span>
+  <div class="input-wrapper">
+    <input type="search" class="input" placeholder="Search" />
+    <mat-icon><span class="input-icon"> search </span></mat-icon>
+  </div>
+
+  <button
+    mat-icon-button
+    matTooltip="Go to your profile"
+    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+    class="example-button"
+  >
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon matBadge="15" matBadgeColor="warn">local_grocery_store</mat-icon>
+    <span class="cdk-visually-hidden">
+      Example with a home icon with overlaid badge showing the number 15
+    </span>
+  </button>
+</mat-toolbar>
+
+<mat-toolbar class="post-toolbar">
+  <div class="grid-post-toolbar">
+    <div class="grid-post-toolbar-item grid-post-toolbar-item-1">
+      FREE DELIVERY AND RETURNS
+    </div>
+    <div class="grid-post-toolbar-item grid-post-toolbar-item-2">
+      Fakee members has free delibery and return 30 days
+    </div>
+  </div>
+</mat-toolbar>

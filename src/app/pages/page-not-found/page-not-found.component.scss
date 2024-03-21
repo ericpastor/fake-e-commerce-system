@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+h1 {
+  font-family: "Tilt Warp", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 4rem;
+  font-weight: 900;
+  margin-bottom: 40px;
+}
+
+button {
+  font-family: "Tilt Warp", sans-serif;
+  font-optical-sizing: auto;
+  padding: 10px 15px;
+  font-weight: 100;
+  border: none;
+  border-radius: 1.5rem;
+  background: black;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  &:hover {
+    transform: scale(1.2);
+    background-color: rgb(241, 241, 241);
+    color: #191919;
+  }
+}

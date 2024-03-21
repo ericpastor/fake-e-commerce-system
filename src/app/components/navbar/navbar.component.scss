@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
+
+.first-spacer {
+  flex: 1 1 auto;
+}
+
+.second-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+  background-color: rgb(255, 255, 255);
+  padding: 0 40px;
+}
+
+.pre-toolbar {
+  background-color: rgb(237, 238, 240);
+  padding: 0 40px;
+  height: 50%;
+  font-size: 0.2em;
+  a {
+    font-size: x-small;
+    align-self: flex-end;
+  }
+}
+
+.pre-toolbar-links {
+  align-self: flex-end;
+}
+
+.post-toolbar {
+  background-color: rgb(237, 238, 240);
+  height: 50%;
+  font-size: small;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: baseline;
+  align-items: baseline;
+}
+
+.grid-post-toolbar {
+  margin: 1rem;
+  display: grid;
+  align-items: center;
+  gap: 1.5rem;
+  grid-template-areas: "box1 box1 box2 box2";
+}
+
+@media (max-width: 560px) {
+  .grid-post-toolbar {
+    margin: 0;
+    gap: 0.1rem;
+    grid-template-areas:
+      "box1 box1"
+      "box2 box2";
+  }
+}
+
+.grid-post-toolbar-item {
+  display: flex;
+  flex-direction: row;
+  // overflow: hidden;
+}
+
+.grid-post-toolbar-item-1 {
+  grid-area: box1;
+  margin: auto;
+}
+.grid-post-toolbar-item-2 {
+  grid-area: box2;
+  margin: auto;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 560px) {
+  .grid-post-toolbar-item-2 {
+    margin-top: -15px;
+    font-size: x-small;
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.demo-section + .demo-section {
+  margin-top: 16px;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 271px;
+}
+.input {
+  box-sizing: border-box;
+  color: #191919;
+  padding: 15px 15px 15px 35px;
+  width: 100%;
+}
+.input-wrapper {
+  position: relative;
+  width: 271px;
+}
+
+.input {
+  box-sizing: border-box;
+  color: #191919;
+  padding: 15px 15px 15px 35px;
+  width: 100%;
+}
+
+.input-icon {
+  color: #191919;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 798px) {
+  .button-row {
+    display: none;
+  }
+  .toolbar {
+    padding: 0 10px;
+  }
+  .first-spacer {
+    display: none;
+  }
+}
+
+@media (max-width: 652px) {
+  .name {
+    display: none;
+  }
+}
+
+@media (min-width: 798px) {
+  .menu {
+    display: none;
+  }
+}
