@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UserToLogin } from '../models/User';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class AuthService {
 
   login(user: { email: string; password: string }): Observable<any> {
     return this.http
-      .post('https://api.escuelajs.co/api/v1/auth/login', user)
+      .post(`${environment.baseUrl}auth/login`, user)
       .pipe(
         tap((tokens: any) => this.loginUser(user.email, tokens.access_token))
       );
@@ -39,7 +40,7 @@ export class AuthService {
   }
 
   getProfile() {
-    return this.http.get('https://api.escuelajs.co/api/v1/auth/profile');
+    return this.http.get(`${environment.baseUrl}auth/profile`);
   }
 
   isLoggedIn() {
