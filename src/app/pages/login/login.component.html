@@ -1,1 +1,17 @@
-<h1>logoin</h1>
+<div class="login">
+  <h1>Login to have your advatages as a men</h1>
+  <form (submit)="login($event)" [formGroup]="loginForm">
+    <input type="text" placeholder="Email*" formControlName="email" />
+    @if (email?.invalid && (email?.dirty || email?.touched)) {
+    @if(email?.errors?.['required']){
+    <span>Email is required</span>} @if(email?.errors?.['email']){
+    <span>Email has to have an email format</span>} }
+
+    <input type="password" placeholder="Password*" formControlName="password" />
+    @if (password?.invalid && (password?.dirty || password?.touched)) {
+    <span>Password is required</span>
+    }
+
+    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+  </form>
+</div>

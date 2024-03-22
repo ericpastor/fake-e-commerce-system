@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  font-family: "Tilt Warp", sans-serif;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 35%;
+  }
+
+  span {
+    color: red;
+    font-size: xx-small;
+  }
+}

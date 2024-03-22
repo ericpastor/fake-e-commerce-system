@@ -6,7 +6,11 @@
   <div class="pre-toolbar-links">
     <a mat-button href="https://www.google.com/" target="_blank">Contact us</a>
     <a mat-button href="https://www.google.com/" target="_blank">Help</a>
+    @if(loggedIn()){
+    <a mat-button (click)="logout()">Logout</a>
+    }@else {
     <a mat-button routerLink="/login">Join us</a>
+    }
   </div>
 </mat-toolbar>
 
@@ -50,6 +54,7 @@
     matTooltip="Go to your profile"
     aria-label="Button that displays a tooltip that hides when scrolled out of the container"
     class="example-button"
+    routerLink="/profile"
   >
     <mat-icon>account_circle</mat-icon>
   </button>
