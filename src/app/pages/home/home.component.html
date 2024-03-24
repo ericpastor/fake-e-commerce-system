@@ -19,21 +19,7 @@
   <button>Show Details</button>
 </div>
 @defer (on viewport) {
-<ul>
-  @for(product of products; track product.id){
-  <h3>{{ product.title }}</h3>
-  <p>{{ product.description }}</p>
-  }
-</ul>
+<products />
 }@placeholder {
 <p>hola esperando</p>
-} @if (this.products.length === 0) {
-<div>no more</div>
 }
-<div>
-  <button (click)="previousPage()" [disabled]="currentPage === 1">
-    Previous
-  </button>
-  <span>Page {{ currentPage }}</span>
-  <button (click)="nextPage()" [disabled]="products.length === 0">Next</button>
-</div>
