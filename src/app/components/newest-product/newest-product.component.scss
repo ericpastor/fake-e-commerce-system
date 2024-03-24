@@ -1,0 +1,48 @@
+.newest-product {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 170px 15% 40px 15%;
+
+  h4 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: #111111;
+  }
+  h1 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+    line-height: 100%;
+    text-align: center;
+  }
+  h3 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    color: #000f49;
+  }
+  button {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    padding: 10px 15px;
+    font-weight: 100;
+    border: none;
+    border-radius: 1.5rem;
+    background: black;
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    &:hover {
+      transform: scale(1.2);
+      background-color: rgb(241, 241, 241);
+      color: #191919;
+    }
+  }
+}

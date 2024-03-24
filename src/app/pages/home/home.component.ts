@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ProductsComponent } from '../../components/products/products.component';
+import { NewestProductComponent } from '../../components/newest-product/newest-product.component';
 
 @Component({
   selector: 'home',
@@ -21,6 +22,7 @@ import { ProductsComponent } from '../../components/products/products.component'
     MatMenuModule,
     NavbarComponent,
     ProductsComponent,
+    NewestProductComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

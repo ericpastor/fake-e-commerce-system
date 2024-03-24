@@ -16,4 +16,8 @@ export class ProductsService {
       `${environment.baseUrl}products?offset=${offset}&limit=${limit}`
     );
   }
+
+  getProducts(): Observable<any> {
+    return this.http.get(`${environment.baseUrl}products`);
+  }
 }

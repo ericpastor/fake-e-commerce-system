@@ -1,0 +1,10 @@
+@if(newestProduct){
+<div class="newest-product">
+  <h4>New arrival</h4>
+  <h1>{{ newestProduct.title.toLocaleUpperCase() }}</h1>
+  <h3>
+    {{ newestProduct.description.substring(0, 150) + "..." }}
+  </h3>
+  <button>Show Details</button>
+</div>
+}

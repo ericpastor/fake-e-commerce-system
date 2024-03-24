@@ -9,14 +9,12 @@
   </div>
 </div>
 
-<div class="newest-product">
-  <h4>New arrival</h4>
-  <h1>PRODUCTS TITLE</h1>
-  <h3>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni nobis,
-    voluptatibus tempore.
-  </h3>
-  <button>Show Details</button>
+<div style="align-self: center">
+  @defer (on viewport) {
+  <newest-product />
+  }@placeholder {
+  <p>hola esperando</p>
+  }
 </div>
 @defer (on viewport) {
 <products />

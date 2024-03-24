@@ -14,7 +14,7 @@ export class ProductEffects {
     private action: Actions,
     private productsService: ProductsService
   ) {}
-  loadProduct$ = createEffect(() =>
+  loadProductWithPagination = createEffect(() =>
     this.action.pipe(
       ofType(loadProducts),
       exhaustMap((action) =>
