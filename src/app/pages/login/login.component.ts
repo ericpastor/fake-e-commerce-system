@@ -47,18 +47,4 @@ export class LoginComponent {
         this.router.navigate(['/']);
       });
   }
-
-  // constructor() {
-  //   this.authService
-  //     .login({
-  //       email: 'john@mail.com',
-  //       password: 'changeme',
-  //     })
-  //     .subscribe((r) => {
-  //       this.authService.getProfile().subscribe((r) => {
-  //         console.log(r);
-  //         this.user = r;
-  //       });
-  //     });
-  // }
 }
