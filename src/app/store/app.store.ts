@@ -1,6 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { ProductByIdModel, ProductModel } from '../models/Product';
-import { productByIdReducer, productReducer } from './Product/Product.Reducer';
+import {
+  allProducts,
+  productByIdReducer,
+  productsWithPaginationReducer,
+} from './Product/Product.Reducer';
 import { CategoryByIdModel, CategoryModel } from '../models/Category';
 import {
   categoryByIdReducer,
@@ -8,14 +12,16 @@ import {
 } from './Category/Category.Reducer';
 
 export interface AppState {
-  products: ProductModel;
+  allProducts: ProductModel;
+  productsWithPagination: ProductModel;
   productById: ProductByIdModel;
   categories: CategoryModel;
   categoryById: CategoryByIdModel;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
-  products: productReducer,
+  allProducts: allProducts,
+  productsWithPagination: productsWithPaginationReducer,
   productById: productByIdReducer,
   categories: categoryReducer,
   categoryById: categoryByIdReducer,

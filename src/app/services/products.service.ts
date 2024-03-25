@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 export class ProductsService {
   private http = inject(HttpClient);
 
-  getAllProducts(offset: number, limit: number): Observable<any> {
+  getProductsWithPagination(offset: number, limit: number): Observable<any> {
     return this.http.get(
       `${environment.baseUrl}products?offset=${offset}&limit=${limit}`
     );
   }
 
-  getProducts(): Observable<any> {
+  getAllProducts(): Observable<any> {
     return this.http.get(`${environment.baseUrl}products`);
   }
 

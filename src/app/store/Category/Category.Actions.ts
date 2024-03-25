@@ -11,6 +11,7 @@ export const loadCategoriesSuccess = createAction(
   LOAD_CATEGORIES_SUCCESS,
   props<{ categories: Category[] }>()
 );
+
 export const loadCategoriesFail = createAction(
   LOAD_CATEGORIES_FAIL,
   props<{ errorMessage: string }>()

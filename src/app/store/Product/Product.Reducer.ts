@@ -1,15 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 import { productByIdState, productState } from './Product.State';
 import {
+  loadAllProductsFail,
+  loadAllProductsSuccess,
   loadProductByIdFail,
   loadProductByIdSuccess,
-  loadProductsFail,
-  loadProductsSuccess,
+  loadProductsWithPaginationFail,
+  loadProductsWithPaginationSuccess,
 } from './Product.Actions';
 
-export const productReducer = createReducer(
+export const allProducts = createReducer(
   productState,
-  on(loadProductsSuccess, (state, action) => {
+  on(loadAllProductsSuccess, (state, action) => {
     return {
       ...state,
       products: action.products,
@@ -17,7 +19,26 @@ export const productReducer = createReducer(
     };
   }),
 
-  on(loadProductsFail, (state, action) => {
+  on(loadAllProductsFail, (state, action) => {
+    return {
+      ...state,
+      products: [],
+      errorMessage: action.errorMessage,
+    };
+  })
+);
+
+export const productsWithPaginationReducer = createReducer(
+  productState,
+  on(loadProductsWithPaginationSuccess, (state, action) => {
+    return {
+      ...state,
+      products: action.products,
+      errorMessage: '',
+    };
+  }),
+
+  on(loadProductsWithPaginationFail, (state, action) => {
     return {
       ...state,
       products: [],

@@ -24,7 +24,7 @@ export class NewestProductComponent implements OnInit {
   }
 
   fetchNewestProduct() {
-    this.products = this.productsService.getProducts();
+    this.products = this.productsService.getAllProducts();
 
     this.products.subscribe((products) => {
       products.sort((a, b) =>
