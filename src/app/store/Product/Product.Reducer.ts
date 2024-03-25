@@ -1,8 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
-import { productState } from './Product.State';
-import { loadProductsFail, loadProductsSuccess } from './Product.Actions';
+import {
+  productByIdState,
+  productInitialState,
+  productState,
+} from './Product.State';
+import {
+  loadProductByIdFail,
+  loadProductByIdSuccess,
+  loadProductsFail,
+  loadProductsSuccess,
+} from './Product.Actions';
 
-const productReducer = createReducer(
+export const productReducer = createReducer(
   productState,
   on(loadProductsSuccess, (state, action) => {
     return {
@@ -21,6 +30,20 @@ const productReducer = createReducer(
   })
 );
 
-export function ProductReducer(state: any, action: any) {
-  return productReducer(state, action);
-}
+export const productByIdReducer = createReducer(
+  productByIdState,
+  on(loadProductByIdSuccess, (state, action) => {
+    return {
+      ...state,
+      product: action.product,
+      errorMessage: '',
+    };
+  }),
+
+  on(loadProductByIdFail, (state, action) => {
+    return {
+      ...state,
+      errorMessage: action.errorMessage,
+    };
+  })
+);

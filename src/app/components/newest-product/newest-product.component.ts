@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/Product';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'newest-product',
@@ -11,10 +13,11 @@ import { Observable } from 'rxjs';
   styleUrl: './newest-product.component.scss',
 })
 export class NewestProductComponent implements OnInit {
-  newestProduct!: Product
+  newestProduct!: Product;
   public products!: Observable<Product[]>;
 
-  productsService = inject(ProductsService);
+  private productsService = inject(ProductsService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.fetchNewestProduct();
@@ -24,12 +27,17 @@ export class NewestProductComponent implements OnInit {
     this.products = this.productsService.getProducts();
 
     this.products.subscribe((products) => {
-      products.sort(
-        (a, b) =>
-          new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()
+      products.sort((a, b) =>
+        a.creationAt && b.creationAt
+          ? new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()
+          : a.categoryId - b.categoryId
       );
 
       this.newestProduct = products[0];
     });
+  }
+
+  goToProductDetails() {
+    this.router.navigate([`/products/${this.newestProduct.id}`]);
   }
 }

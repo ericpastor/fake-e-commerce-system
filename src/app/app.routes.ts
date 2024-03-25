@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authProfileGuard } from './guards/auth-profile.guard';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,10 @@ export const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [authProfileGuard],
+  },
+  {
+    path: 'products/:id',
+    component: ProductDetailsComponent,
   },
   {
     path: '**',
