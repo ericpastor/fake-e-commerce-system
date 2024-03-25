@@ -1,9 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import {
-  productByIdState,
-  productInitialState,
-  productState,
-} from './Product.State';
+import { productByIdState, productState } from './Product.State';
 import {
   loadProductByIdFail,
   loadProductByIdSuccess,

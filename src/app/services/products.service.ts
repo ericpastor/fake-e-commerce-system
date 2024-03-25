@@ -9,8 +9,6 @@ import { Observable } from 'rxjs';
 export class ProductsService {
   private http = inject(HttpClient);
 
-  constructor() {}
-
   getAllProducts(offset: number, limit: number): Observable<any> {
     return this.http.get(
       `${environment.baseUrl}products?offset=${offset}&limit=${limit}`
@@ -21,7 +19,7 @@ export class ProductsService {
     return this.http.get(`${environment.baseUrl}products`);
   }
 
-  getProductById(id:number):Observable<any>{
-    return this.http.get(`${environment.baseUrl}products/${id}`)
+  getProductById(id: number): Observable<any> {
+    return this.http.get(`${environment.baseUrl}products/${id}`);
   }
 }

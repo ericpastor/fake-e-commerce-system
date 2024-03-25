@@ -10,13 +10,14 @@ import { authInterceptor } from './interceptors/auth.interceptor';
 import { provideEffects } from '@ngrx/effects';
 import { ProductEffects } from './store/Product/Product.Effects';
 import { appReducers } from './store/app.store';
+import { CategoryEffects } from './store/Category/Category.Effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
     provideStore(appReducers),
-    provideEffects([ProductEffects]),
+    provideEffects([ProductEffects, CategoryEffects]),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],

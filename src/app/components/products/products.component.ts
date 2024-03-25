@@ -10,6 +10,9 @@ import { Product } from '../../models/Product';
 import { loadProducts } from '../../store/Product/Product.Actions';
 import { getAllProducts } from '../../store/Product/Product.Selector';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { loadCategories } from '../../store/Category/Category.Actions';
+import { getAllCategories } from '../../store/Category/Category.Selector';
+import { Category } from '../../models/Category';
 
 @Component({
   selector: 'products',
@@ -28,20 +31,28 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class ProductsComponent implements OnInit {
   public products: Product[] = [];
+  public categories: Category[] = [];
   public offset = 0;
   public limit = 10;
   public currentPage = 0;
 
-  private productsFromStore = inject(Store);
+  private store = inject(Store);
   private router = inject(Router);
 
   ngOnInit(): void {
     this.fetchProducts(this.offset, this.limit);
+    this.fetchCategories();
+  }
+  fetchCategories() {
+    this.store.dispatch(loadCategories());
+    this.store.select(getAllCategories).subscribe((response) => {
+      this.categories = response;
+    });
   }
 
   fetchProducts(offset: number, limit: number) {
-    this.productsFromStore.dispatch(loadProducts({ offset, limit }));
-    this.productsFromStore.select(getAllProducts).subscribe((response) => {
+    this.store.dispatch(loadProducts({ offset, limit }));
+    this.store.select(getAllProducts).subscribe((response) => {
       this.products = response;
     });
   }
