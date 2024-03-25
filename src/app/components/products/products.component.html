@@ -1,11 +1,11 @@
 <p>products works!</p>
-<ul>
-  @for(product of products; track product.id){
+@for(product of products; track product.id){ @if(product.id){
+<div (click)="goToProductDetails(product.id)">
   <h3>{{ product.title }}</h3>
   <p>{{ product.description }}</p>
   <p>{{ product.creationAt }}</p>
-  }
-</ul>
+</div>
+} }
 
 <p>hola esperando</p>
 @if (this.products.length === 0) {

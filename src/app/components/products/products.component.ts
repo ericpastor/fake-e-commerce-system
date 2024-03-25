@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Product } from '../../models/Product';
 import { loadProducts } from '../../store/Product/Product.Actions';
@@ -33,6 +33,7 @@ export class ProductsComponent implements OnInit {
   public currentPage = 0;
 
   private productsFromStore = inject(Store);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.fetchProducts(this.offset, this.limit);
@@ -58,5 +59,9 @@ export class ProductsComponent implements OnInit {
       this.offset = this.offset - 10;
       this.fetchProducts(this.offset, this.limit);
     }
+  }
+
+  goToProductDetails(id: number) {
+    this.router.navigate([`/products/${id}`]);
   }
 }
