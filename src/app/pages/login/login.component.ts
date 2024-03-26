@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { User, UserToLogin } from '../../models/User';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,

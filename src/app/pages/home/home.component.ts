@@ -9,6 +9,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ProductsComponent } from '../../components/products/products.component';
 import { NewestProductComponent } from '../../components/newest-product/newest-product.component';
 import { CategoriesComponent } from '../../components/categories/categories.component';
+import { LatestProductsComponent } from '../../components/latest-products/latest-products.component';
 
 @Component({
   selector: 'home',
@@ -24,7 +25,8 @@ import { CategoriesComponent } from '../../components/categories/categories.comp
     NavbarComponent,
     ProductsComponent,
     NewestProductComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    LatestProductsComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

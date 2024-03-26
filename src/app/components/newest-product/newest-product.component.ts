@@ -3,7 +3,6 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/Product';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'newest-product',

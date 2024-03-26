@@ -1,0 +1,35 @@
+<h1>Latest Products</h1>
+
+<div class="products">
+  <swiper-container
+    loop="true"
+    navigation="true"
+    slides-per-view="4"
+    speed="500"
+    mousewheel="true"
+    direction="horizontal"
+  >
+    @for(product of latestProducts; track product.id){
+    <swiper-slide>
+      <div class="grid-product">
+        <div class="grid-product-item grid-product-item-1">
+          <div class="product-card">
+            <div
+              class="product-image"
+              [style.background-image]="
+                product.images[0]
+                  ? 'url(' + cleanString(product.images[0]) + ')'
+                  : 'none'
+              "
+            ></div>
+          </div>
+        </div>
+        <p class="grid-product-item grid-product-item-2">{{ product.title }}</p>
+        <p class="grid-product-item grid-product-item-3">
+          {{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}
+        </p>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
+</div>

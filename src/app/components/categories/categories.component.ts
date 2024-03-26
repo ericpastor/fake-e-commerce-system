@@ -15,7 +15,6 @@ import { NgStyle } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CategoriesComponent {
-  public scrollButtons = document.querySelectorAll('.next-btn, .prev-btn');
   public categories: Category[] = [];
 
   private store = inject(Store);
@@ -23,9 +22,6 @@ export class CategoriesComponent {
 
   ngOnInit() {
     this.fetchAllCategories();
-    this.scrollButtons.forEach((button) => {
-      button.addEventListener('click', this.handleScrollButtonClick);
-    });
   }
 
   fetchAllCategories() {
@@ -37,13 +33,5 @@ export class CategoriesComponent {
 
   gotToCategories() {
     this.router.navigate(['categories']);
-  }
-
-  handleScrollButtonClick(event: any) {
-    const container = event.target
-      .closest('.category-slider')
-      .querySelector('.category-list');
-    const direction = event.target.classList.contains('next-btn') ? 1 : -1;
-    container.scrollLeft += direction * 500;
   }
 }
