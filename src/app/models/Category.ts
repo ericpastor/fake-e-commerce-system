@@ -1,7 +1,7 @@
 export interface Category {
   id?: number;
   name: string;
-  images: string;
+  image: string;
   creationAt?: Date;
 }
 

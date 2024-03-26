@@ -2,7 +2,7 @@ import { CategoryByIdModel, CategoryModel } from '../../models/Category';
 
 export const categoryInitialState = {
   name: '',
-  images: '',
+  image: '',
 };
 
 export const categoryState: CategoryModel = {

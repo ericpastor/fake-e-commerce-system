@@ -1,0 +1,27 @@
+<h1>Categories</h1>
+
+<div class="categories">
+  <swiper-container
+    loop="true"
+    navigation="true"
+    slides-per-view="4"
+    speed="500"
+    mousewheel="true"
+    direction="horizontal"
+  >
+    @for(category of categories; track category.id){
+    <swiper-slide>
+      <div class="category-card">
+        <div
+          class="category-image"
+          [style.background-image]="
+            category.image ? 'url(' + category.image + ')' : 'none'
+          "
+        >
+          <button class="category-button">{{ category.name }}</button>
+        </div>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
+</div>

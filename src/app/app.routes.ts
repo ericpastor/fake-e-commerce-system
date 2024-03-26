@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authProfileGuard } from './guards/auth-profile.guard';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { ProductsComponent } from './components/products/products.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path: 'products/:id',
     component: ProductDetailsComponent,
+  },
+  {
+    path: 'products',
+    component: ProductsComponent,
   },
   {
     path: '**',

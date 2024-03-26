@@ -48,12 +48,6 @@ export class ProductsComponent implements OnInit {
   fetchCategories() {
     this.store.dispatch(loadCategories());
 
-    this.store
-      .select((state) => state.category.errorMessage)
-      .subscribe((errorMessage) => {
-        this.errorMessage = errorMessage;
-      });
-
     this.store.select(getAllCategories).subscribe((categories) => {
       this.topCategories = categories.slice(0, 3);
     });
@@ -61,12 +55,6 @@ export class ProductsComponent implements OnInit {
 
   fetchProductsWithPagination(offset: number, limit: number) {
     this.store.dispatch(loadProductsWithPagination({ offset, limit }));
-
-    this.store
-      .select((state) => state.product.errorMessage)
-      .subscribe((errorMessage) => {
-        this.errorMessage = errorMessage;
-      });
 
     this.store.select(getAllProductsWithPagination).subscribe((response) => {
       this.products = response;
