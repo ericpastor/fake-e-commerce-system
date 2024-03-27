@@ -1,0 +1,216 @@
+.product-details {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.grid-product-details {
+  display: grid;
+  align-items: center;
+  gap: 40px;
+  margin: 20px 20px 20px 20px;
+  grid-template-areas:
+    "box1 box1 box2 box2 "
+    "box1 box1 box2 box2 ";
+  place-items: center;
+}
+
+.grid-product-details-item {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.grid-product-details-item-1 {
+  grid-area: box1;
+  overflow: hidden;
+  max-width: 120%;
+  .product-images {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .grid-product-images {
+    display: grid;
+    align-items: center;
+    gap: 20px;
+    grid-template-areas:
+      "box1 box1 box4 box4 box4 box4"
+      "box1 box1 box4 box4 box4 box4"
+      "box2 box2 box4 box4 box4 box4"
+      "box2 box2 box4 box4 box4 box4"
+      "box3 box3 box4 box4 box4 box4"
+      "box3 box3 box4 box4 box4 box4";
+  }
+
+  .grid-product-images-item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .grid-product-images-item-1 {
+    grid-area: box1;
+    .product-image {
+      height: 100px;
+      width: 150px;
+      background-size: cover;
+      background-position: center;
+    }
+    .product-no-image {
+      height: 100px;
+      width: 150px;
+      background-color: rgb(237, 238, 240);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .material-symbols-outlined {
+      font-size: 50px;
+      height: 50px;
+      width: 50px;
+      color: rgb(124, 124, 125);
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 50;
+    }
+  }
+  .grid-product-images-item-2 {
+    grid-area: box2;
+    .product-image {
+      height: 100px;
+      width: 150px;
+      background-size: cover;
+      background-position: center;
+    }
+    .product-no-image {
+      height: 100px;
+      width: 150px;
+      background-color: rgb(237, 238, 240);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .material-symbols-outlined {
+      font-size: 50px;
+      height: 50px;
+      width: 50px;
+      color: rgb(124, 124, 125);
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 50;
+    }
+  }
+  .grid-product-images-item-3 {
+    grid-area: box3;
+    .product-image {
+      height: 100px;
+      width: 150px;
+      background-size: cover;
+      background-position: center;
+    }
+    .product-no-image {
+      height: 100px;
+      width: 150px;
+      background-color: rgb(237, 238, 240);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .material-symbols-outlined {
+      font-size: 50px;
+      height: 50px;
+      width: 50px;
+      color: rgb(124, 124, 125);
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 50;
+    }
+  }
+  .grid-product-images-item-4 {
+    grid-area: box4;
+    .product-image {
+      height: 340px;
+      width: 340px;
+      background-size: cover;
+      background-position: center;
+    }
+    .product-no-image {
+      height: 340px;
+      width: 340px;
+      background-color: rgb(237, 238, 240);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .material-symbols-outlined {
+      font-size: 50px;
+      height: 50px;
+      width: 50px;
+      color: rgb(124, 124, 125);
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 50;
+    }
+  }
+}
+
+.grid-product-details-item-2 {
+  grid-area: box2;
+  max-width: 80%;
+  place-items: center;
+
+  .product-description {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  h4 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: lighter;
+    margin-bottom: 15px;
+    color: #373737;
+  }
+  h1 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+    line-height: 100%;
+    text-align: center;
+  }
+  h3 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: #000f49;
+  }
+}
+.price-and-button {
+  display: flex;
+  justify-content: space-between;
+  align-content: baseline;
+  width: 75%;
+  margin-bottom: 5px;
+  button {
+    align-self: baseline;
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    padding: 10px 15px;
+    font-weight: 100;
+    border: none;
+    border-radius: 1.5rem;
+    background: black;
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    &:hover {
+      transform: scale(1.2);
+      background-color: rgb(241, 241, 241);
+      color: #191919;
+    }
+  }
+}

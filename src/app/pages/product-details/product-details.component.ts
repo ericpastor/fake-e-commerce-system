@@ -1,15 +1,25 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  Input,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadProductById } from '../../store/Product/Product.Actions';
 import { getProductById } from '../../store/Product/Product.Selector';
 import { Product } from '../../models/Product';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'product-details',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, NavbarComponent, MatIconModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProductDetailsComponent implements OnInit {
   @Input('id') productId!: number;
@@ -22,18 +32,35 @@ export class ProductDetailsComponent implements OnInit {
     categoryId: 0,
   };
 
-  private productDetailsFromStore = inject(Store);
+  private store = inject(Store);
 
   ngOnInit(): void {
     this.fetchProductDetails(this.productId);
   }
   fetchProductDetails(id: number) {
-    console.log(id);
-    this.productDetailsFromStore.dispatch(loadProductById({ id }));
-    this.productDetailsFromStore
-      .select(getProductById)
-      .subscribe((response) => {
-        this.product = response;
-      });
+    this.store.dispatch(loadProductById({ id }));
+    this.store.select(getProductById).subscribe((response) => {
+      this.product = response;
+    });
+  }
+
+  cleanString(str: string) {
+    str = str.replace(/\\/g, '');
+    str = str.replace(/"/g, '');
+    str = str.replace(/\[/g, '');
+    str = str.replace(/\]/g, '');
+    return str;
+  }
+  urlChecking(array: string[], positonInArray: number): boolean {
+    if (
+      this.cleanString(array[positonInArray]).startsWith('http') &&
+      (this.cleanString(array[positonInArray]).includes('jpg') ||
+        this.cleanString(array[positonInArray]).includes('jpeg') ||
+        this.cleanString(array[positonInArray]).includes('png') ||
+        this.cleanString(array[positonInArray]).includes('image'))
+    ) {
+      return true;
+    }
+    return false;
   }
 }

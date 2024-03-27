@@ -11,9 +11,11 @@
   >
     @for(product of latestProducts; track product.id){
     <swiper-slide>
-      <div class="grid-product">
+      @if(product.id){
+      <div class="grid-product" (click)="goToProductDetails(product.id)">
         <div class="grid-product-item grid-product-item-1">
           <div class="product-card">
+            @if(product.images[0] && urlChecking(product.images, 0)){
             <div
               class="product-image"
               [style.background-image]="
@@ -22,6 +24,14 @@
                   : 'none'
               "
             ></div>
+            } @else{
+            <div class="product-no-image">
+              <mat-icon class="material-symbols-outlined">
+                no_photography</mat-icon
+              >
+            </div>
+
+            }
           </div>
         </div>
         <p class="grid-product-item grid-product-item-2">{{ product.title }}</p>
@@ -29,6 +39,7 @@
           {{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}
         </p>
       </div>
+      }
     </swiper-slide>
     }
   </swiper-container>

@@ -1,5 +1,109 @@
-<p>product-details works!</p>
-<h1>{{ product.title }}</h1>
-<div>
-  <img [src]="product.images[0]" alt="Product Image" />
+<navbar />
+<div class="product-dateils">
+  <div class="grid-product-details">
+    <div class="grid-product-details-item grid-product-details-item-1">
+      <div class="product-images">
+        <div class="grid-product-images">
+          <div class="grid-product-images-item grid-product-images-item-1">
+            @if(product.images[0] && urlChecking(product.images, 0) ){
+            <div
+              class="product-image"
+              [style.background-image]="
+                product.images[0]
+                  ? 'url(' + cleanString(product.images[0]) + ')'
+                  : 'none'
+              "
+            ></div>
+
+            } @else{
+            <div class="product-no-image">
+              <mat-icon class="material-symbols-outlined">
+                no_photography</mat-icon
+              >
+            </div>
+
+            }
+          </div>
+
+          <div class="grid-product-images-item grid-product-images-item-2">
+            @if(product.images[1] && urlChecking(product.images, 1) ){
+            <div
+              class="product-image"
+              [style.background-image]="
+                product.images[1]
+                  ? 'url(' + cleanString(product.images[1]) + ')'
+                  : 'none'
+              "
+            ></div>
+
+            } @else{
+            <div class="product-no-image">
+              <mat-icon class="material-symbols-outlined">
+                no_photography</mat-icon
+              >
+            </div>
+
+            }
+          </div>
+
+          <div class="grid-product-images-item grid-product-images-item-3">
+            @if(product.images[2] && urlChecking(product.images, 2) ){
+
+            <div
+              class="product-image"
+              [style.background-image]="
+                product.images[2]
+                  ? 'url(' + cleanString(product.images[2]) + ')'
+                  : 'none'
+              "
+            ></div>
+
+            } @else{
+            <div class="product-no-image">
+              <mat-icon class="material-symbols-outlined">
+                no_photography</mat-icon
+              >
+            </div>
+
+            }
+          </div>
+
+          <div class="grid-product-images-item grid-product-images-item-4">
+            @if(product.images[0] && urlChecking(product.images, 0) ){
+
+            <div
+              class="product-image"
+              [style.background-image]="
+                product.images[0]
+                  ? 'url(' + cleanString(product.images[0]) + ')'
+                  : 'none'
+              "
+            ></div>
+
+            } @else{
+            <div class="product-no-image">
+              <mat-icon class="material-symbols-outlined">
+                no_photography</mat-icon
+              >
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-product-details-item grid-product-details-item-2">
+      <div>
+        <h1>{{ product.title }}</h1>
+      </div>
+
+      <div>
+        <h4>{{ product.description }}</h4>
+      </div>
+
+      <div class="price-and-button">
+        <h3>{{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}</h3>
+        <button>Add to cart</button>
+      </div>
+    </div>
+  </div>
 </div>

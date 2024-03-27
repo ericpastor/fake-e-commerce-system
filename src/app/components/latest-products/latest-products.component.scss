@@ -44,6 +44,7 @@ swiper-slide:first-child {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .grid-product-item-1 {
@@ -57,6 +58,20 @@ swiper-slide:first-child {
     background-size: cover;
     background-position: center;
     position: relative;
+  }
+  .product-no-image {
+    height: 280px;
+    background-color: rgb(237, 238, 240);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .material-symbols-outlined {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+    color: rgb(124, 124, 125);
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 50;
   }
 }
 .grid-product-item-2 {
