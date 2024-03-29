@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { ProductsComponent } from '../../components/products/products.component';
+import { ProductsComponent } from '../products/products.component';
 import { NewestProductComponent } from '../../components/newest-product/newest-product.component';
 import { CategoriesComponent } from '../../components/categories/categories.component';
 import { LatestProductsComponent } from '../../components/latest-products/latest-products.component';

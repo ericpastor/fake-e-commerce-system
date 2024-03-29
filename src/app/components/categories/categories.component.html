@@ -1,5 +1,4 @@
 <h1>Categories</h1>
-
 <div class="categories">
   <swiper-container
     loop="true"
@@ -18,7 +17,9 @@
             category.image ? 'url(' + category.image + ')' : 'none'
           "
         >
-          <button class="category-button">{{ category.name }}</button>
+          <button (click)="handleClick(category.name)" class="category-button">
+            {{ category.name }}
+          </button>
         </div>
       </div>
     </swiper-slide>

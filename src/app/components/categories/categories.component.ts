@@ -1,4 +1,10 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+} from '@angular/core';
 import { Category } from '../../models/Category';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -15,6 +21,7 @@ import { NgStyle } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CategoriesComponent {
+  @Output() addChosenCategoryEvent = new EventEmitter<string>();
   public categories: Category[] = [];
 
   private store = inject(Store);
@@ -31,7 +38,20 @@ export class CategoriesComponent {
     });
   }
 
+  chosenCategory(category: string) {
+    this.addChosenCategoryEvent.emit(category);
+  }
+
   gotToCategories() {
     this.router.navigate(['categories']);
+  }
+
+  goToProducts() {
+    this.router.navigate(['products']);
+  }
+
+  handleClick(category: string) {
+    this.chosenCategory(category);
+    this.goToProducts();
   }
 }

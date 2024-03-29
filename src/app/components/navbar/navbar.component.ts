@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -33,6 +33,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   public loggedIn(): boolean {
     if (this.authService.isLoggedIn()) {
@@ -40,6 +41,13 @@ export class NavbarComponent {
     } else {
       return false;
     }
+  }
+  goHome() {
+    this.router.navigate(['/']);
+  }
+
+  goToProducts() {
+    this.router.navigate(['products']);
   }
 
   public logout() {

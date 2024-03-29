@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './product-details.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent {
   @Input('id') productId!: number;
 
   public product: Product = {
