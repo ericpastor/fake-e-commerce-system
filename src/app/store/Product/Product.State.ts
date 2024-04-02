@@ -5,7 +5,7 @@ export const productInitialState = {
   price: 0,
   description: '',
   images: [],
-  categoryId: 0,
+  category: { id: 0, name: '', image: '' },
 };
 
 export const productState: ProductModel = {

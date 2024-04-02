@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductsService } from '../../services/products.service';
 import {
   loadAllProducts,
+  loadAllProductsFail,
+  loadAllProductsSuccess,
   loadProductById,
   loadProductByIdFail,
   loadProductByIdSuccess,
@@ -20,11 +22,11 @@ export class ProductEffects {
   loadAllProducts = createEffect(() =>
     this.action.pipe(
       ofType(loadAllProducts),
-      exhaustMap((action) =>
+      exhaustMap(() =>
         this.productsService.getAllProducts().pipe(
-          map((products) => loadProductsWithPaginationSuccess({ products })),
+          map((products) => loadAllProductsSuccess({ products })),
           catchError((error) =>
-            of(loadProductsWithPaginationFail({ errorMessage: error.message }))
+            of(loadAllProductsFail({ errorMessage: error.message }))
           )
         )
       )

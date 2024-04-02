@@ -1,42 +1,79 @@
 <navbar />
-<section
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollUpDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
->
-  <ul class="list">
-    @for(product of totalProducts; track product.id){ @if(product.id){
-    <div class="grid-product" (click)="goToProductDetails(product.id)">
-      <div class="grid-product-item grid-product-item-1">
-        <div class="product-card">
-          @if(product.images[0] && urlChecking(product.images, 0)){
-          <div
-            class="product-image"
-            [style.background-image]="
-              product.images[0]
-                ? 'url(' + cleanString(product.images[0]) + ')'
-                : 'none'
-            "
-          ></div>
-          } @else{
-          <div class="product-no-image">
-            <mat-icon class="material-symbols-outlined">
-              no_photography</mat-icon
-            >
-          </div>
-
-          }
-        </div>
-      </div>
-      <p class="grid-product-item grid-product-item-2">{{ product.title }}</p>
-      <p class="grid-product-item grid-product-item-3">
-        {{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}
-      </p>
+<div class="grid-layout">
+  <mat-toolbar class="grid-layout-item grid-layout-item-1">
+    <div class="element1">
+      @if(selectedCategory !== '' ){
+      <p>{{ selectedCategory }}</p>
+      }@else {
+      <p>Categories</p>
+      }
     </div>
-    } }
-  </ul>
-</section>
+    <button class="element2" mat-button [matMenuTriggerFor]="menu">
+      Sorted by
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="sortByHighestPrice()">
+        Price: highest to lowest
+      </button>
+      <button mat-menu-item (click)="sortByLowestPrice()">
+        Price: lowest to highest
+      </button>
+    </mat-menu>
+  </mat-toolbar>
 
+  <section class="grid-layout-item grid-layout-item-2">
+    <ul>
+      <li><p (click)="resetFilters()">All Categories</p></li>
+      @for(category of categories; track category.id){ @if(category.id){
 
+      <li
+        (click)="titleCategory(category.name)"
+        (click)="filterByCategory(category.id)"
+      >
+        {{ category.name }}
+      </li>
+      } }
+    </ul>
+  </section>
+  <section
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollUpDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    class="grid-layout-item grid-layout-item-3"
+  >
+    <ul class="list">
+      @for(product of totalProducts; track product.id){ @if(product.id){
+      <div class="grid-product" (click)="goToProductDetails(product.id)">
+        <div class="grid-product-item grid-product-item-1">
+          <div class="product-card">
+            @if(product.images[0] && urlChecking(product.images, 0)){
+            <div
+              class="product-image"
+              [style.background-image]="
+                product.images[0]
+                  ? 'url(' + cleanString(product.images[0]) + ')'
+                  : 'none'
+              "
+            ></div>
+            } @else{
+            <div class="product-no-image">
+              <mat-icon class="material-symbols-outlined">
+                no_photography</mat-icon
+              >
+            </div>
+            }
+          </div>
+        </div>
+        <p class="grid-product-item grid-product-item-2">
+          {{ product.title }}
+        </p>
+        <p class="grid-product-item grid-product-item-3">
+          {{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}
+        </p>
+      </div>
+      } }
+    </ul>
+  </section>
+</div>

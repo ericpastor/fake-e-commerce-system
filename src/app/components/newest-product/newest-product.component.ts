@@ -29,7 +29,7 @@ export class NewestProductComponent implements OnInit {
       products.sort((a, b) =>
         a.creationAt && b.creationAt
           ? new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()
-          : a.categoryId - b.categoryId
+          : a.category.id! - b.category.id!
       );
 
       this.newestProduct = products[0];

@@ -37,7 +37,7 @@ export class LatestProductsComponent implements OnInit {
       products.sort((a, b) =>
         a.creationAt && b.creationAt
           ? new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()
-          : a.categoryId - b.categoryId
+          : a.category.id! - b.category.id!
       );
 
       this.latestProducts = products.slice(0, 9);
