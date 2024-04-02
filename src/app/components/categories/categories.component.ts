@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { getAllCategories } from '../../store/Category/Category.Selector';
 import { loadCategories } from '../../store/Category/Category.Actions';
 import { NgStyle } from '@angular/common';
+import { CategoriesService } from '../../services/categories.service';
 
 @Component({
   selector: 'categories',
@@ -21,11 +22,11 @@ import { NgStyle } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CategoriesComponent {
-  @Output() addChosenCategoryEvent = new EventEmitter<string>();
   public categories: Category[] = [];
 
   private store = inject(Store);
   private router = inject(Router);
+  private service = inject(CategoriesService);
 
   ngOnInit() {
     this.fetchAllCategories();
@@ -38,10 +39,6 @@ export class CategoriesComponent {
     });
   }
 
-  chosenCategory(category: string) {
-    this.addChosenCategoryEvent.emit(category);
-  }
-
   gotToCategories() {
     this.router.navigate(['categories']);
   }
@@ -50,8 +47,8 @@ export class CategoriesComponent {
     this.router.navigate(['products']);
   }
 
-  handleClick(category: string) {
-    this.chosenCategory(category);
+  handleClick(categoryId: number) {
+    this.service.setChosenCategoryId(categoryId);
     this.goToProducts();
   }
 }

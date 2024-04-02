@@ -17,7 +17,7 @@
             category.image ? 'url(' + category.image + ')' : 'none'
           "
         >
-          <button (click)="handleClick(category.name)" class="category-button">
+          <button (click)="handleClick(category.id!)" class="category-button">
             {{ category.name }}
           </button>
         </div>

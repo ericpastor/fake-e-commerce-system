@@ -12,7 +12,7 @@ import {
   loadProductsWithPaginationFail,
   loadProductsWithPaginationSuccess,
 } from './Product.Actions';
-import { catchError, exhaustMap, map, mergeMap, of } from 'rxjs';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 
 @Injectable()
 export class ProductEffects {

@@ -23,7 +23,7 @@
 
   <section class="grid-layout-item grid-layout-item-2">
     <ul>
-      <li><p (click)="resetFilters()">All Categories</p></li>
+      <p (click)="resetFilters()">All Categories</p>
       @for(category of categories; track category.id){ @if(category.id){
 
       <li
@@ -35,12 +35,13 @@
       } }
     </ul>
   </section>
+
   <section
     infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollUpDistance]="2"
     [infiniteScrollThrottle]="50"
-    (scrolled)="onScroll()"
+    (scrolled)="onScroll(categoryId)"
     class="grid-layout-item grid-layout-item-3"
   >
     <ul class="list">

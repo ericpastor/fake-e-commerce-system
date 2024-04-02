@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
+import { shareReplay, takeUntil } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -23,6 +24,8 @@ import { CategoriesComponent } from '../../components/categories/categories.comp
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CommonModule } from '@angular/common';
+import { CategoriesService } from '../../services/categories.service';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'products',
@@ -49,19 +52,38 @@ export class ProductsComponent implements OnInit {
   public totalProducts: Product[] = [];
   public filteredProducts: Product[] = [];
   public categories: Category[] = [];
+  chosenCategoryFromHome!: Signal<number>;
   public selectedCategory = '';
   public panelOpenState = false;
   public errorMessage!: string;
-  public categoryId!: number | undefined;
+  public categoryId: number = 0;
   public offset = 0;
   public limit = 10;
 
+  private service = inject(CategoriesService);
   private store = inject(Store);
   private router = inject(Router);
 
   ngOnInit(): void {
     this.fetchCategories();
-    this.fetchProductsWithPagination(this.offset, this.limit);
+    this.getChosenCategoryFromHome();
+    if (
+      this.chosenCategoryFromHome() === 0 &&
+      this.categoryId === 0 &&
+      this.selectedCategory !== 'All Categories'
+    ) {
+      this.fetchProductsWithPagination(0, 10);
+    }
+    if (this.chosenCategoryFromHome() > 0) {
+      this.filterByCategory(this.chosenCategoryFromHome());
+    }
+  }
+
+  getChosenCategoryFromHome() {
+    this.chosenCategoryFromHome = this.service.getChosenCategoryId();
+    if (this.chosenCategoryFromHome() > 0) {
+      this.categoryId = this.chosenCategoryFromHome();
+    }
   }
 
   fetchCategories() {
@@ -72,12 +94,13 @@ export class ProductsComponent implements OnInit {
   }
 
   fetchProductsWithPagination(offset: number, limit: number) {
-    this.store.dispatch(loadProductsWithPagination({ offset, limit }));
-
-    this.store.select(getAllProductsWithPagination).subscribe((response) => {
-      this.totalProducts = this.totalProducts.concat(response);
-      this.products = this.products.concat(response);
-    });
+    if (this.chosenCategoryFromHome() === 0 && this.categoryId === 0) {
+      this.store.dispatch(loadProductsWithPagination({ offset, limit }));
+      this.store.select(getAllProductsWithPagination).subscribe((response) => {
+        this.totalProducts = this.totalProducts.concat(response);
+        this.products = this.products.concat(response);
+      });
+    }
   }
 
   sortByHighestPrice() {
@@ -88,7 +111,9 @@ export class ProductsComponent implements OnInit {
     this.totalProducts.sort((a, b) => a.price - b.price);
   }
   filterByCategory(categoryId: number) {
+    this.service.setCategoryIdToZero();
     this.store.dispatch(loadAllProducts());
+    this.categoryId = categoryId;
     this.store.select(getAllProducts).subscribe((response) => {
       if (categoryId) {
         this.filteredProducts = response.filter(
@@ -100,22 +125,25 @@ export class ProductsComponent implements OnInit {
   }
 
   resetFilters() {
-    this.categoryId = 0;
     this.totalProducts = [];
+    this.categoryId = 0;
+    this.service.setCategoryIdToZero();
     this.selectedCategory = 'All Categories';
-    this.fetchProductsWithPagination(0, 10);
+    this.totalProducts = this.products;
   }
 
-  onScroll() {
-    this.offset = this.offset + 10;
+  onScroll(categoryId: number) {
+    if (categoryId === 0) {
+      this.offset = this.offset + 10;
 
-    this.store.dispatch(
-      loadProductsWithPagination({ offset: this.offset, limit: this.limit })
-    );
+      this.store.dispatch(
+        loadProductsWithPagination({ offset: this.offset, limit: this.limit })
+      );
 
-    this.store.select(getAllProductsWithPagination).subscribe((response) => {
-      this.products = response;
-    });
+      this.store.select(getAllProductsWithPagination).subscribe((response) => {
+        this.products = response;
+      });
+    }
   }
 
   goToProductDetails(id: number) {
