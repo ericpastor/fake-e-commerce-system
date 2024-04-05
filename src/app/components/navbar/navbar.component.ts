@@ -7,6 +7,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
+import { SearchComponent } from '../search/search.component';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'navbar',
@@ -19,6 +21,7 @@ import { AuthService } from '../../services/auth.service';
     MatIconModule,
     MatTooltipModule,
     MatMenuModule,
+    SearchComponent,
   ],
   animations: [
     trigger('zoomin', [
@@ -30,8 +33,15 @@ import { AuthService } from '../../services/auth.service';
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: NavbarComponent,
+      multi: true,
+    },
+  ],
 })
-export class NavbarComponent {
+export class NavbarComponent implements ControlValueAccessor {
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -46,11 +56,28 @@ export class NavbarComponent {
     this.router.navigate(['/']);
   }
 
+  goToCart() {
+    this.router.navigate(['cart']);
+  }
+
   goToProducts() {
     this.router.navigate(['products']);
   }
 
   public logout() {
     this.authService.logout();
+  }
+
+  writeValue(obj: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnChange(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnTouched(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    throw new Error('Method not implemented.');
   }
 }

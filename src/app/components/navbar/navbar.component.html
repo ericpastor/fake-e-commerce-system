@@ -46,11 +46,7 @@
   <span class="name">Fakee-commerce</span>
 
   <span class="second-spacer"></span>
-  <div class="input-wrapper">
-    <input type="search" class="input" placeholder="Search" />
-    <mat-icon><span class="input-icon"> search </span></mat-icon>
-  </div>
-
+  <search formControlName="title" />
   <button
     mat-icon-button
     matTooltip="Go to your profile"
@@ -64,6 +60,7 @@
     mat-icon-button
     class="example-icon"
     aria-label="Example icon-button with menu icon"
+    (click)="goToCart()"
   >
     <mat-icon matBadge="15" matBadgeColor="warn">local_grocery_store</mat-icon>
     <span class="cdk-visually-hidden">

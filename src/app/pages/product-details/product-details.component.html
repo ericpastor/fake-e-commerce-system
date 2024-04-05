@@ -102,7 +102,7 @@
 
       <div class="price-and-button">
         <h3>{{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}</h3>
-        <button>Add to cart</button>
+        <button (click)="addToCart(product)">Add to cart</button>
       </div>
     </div>
   </div>

@@ -1,0 +1,12 @@
+<p>cart works!</p>
+<h1>CArt</h1>
+@for(item of items; track item.product.id){
+<p>{{ item.quantity }}</p>
+<p>{{ item.product.title }}</p>
+<button (click)="removeItem(item)">remove</button>
+
+<p>Quantity: {{ item.quantity }}</p>
+<button (click)="incrementQuantity(item)">+</button>
+<button (click)="decrementQuantity(item)">-</button>
+}
+<p>Total: {{ getTotal() }}</p>

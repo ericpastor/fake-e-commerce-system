@@ -1,0 +1,72 @@
+<div
+  class="input-wrapper"
+  [formGroup]="formGroup"
+  [style]="{
+    'z-index': dialogOpenState ? '9999' : 'auto',
+  }"
+>
+  <input
+    class="input"
+    (input)="searchProducts()"
+    formControlName="title"
+    type="text"
+    placeholder="search any product"
+    (click)="fetchAllProducts()"
+  />
+  <mat-icon><span class="input-icon"> search </span></mat-icon>
+</div>
+
+@if(dialogOpenState === true){
+<div class="overlay">
+  <button (click)="cancel()">Cancel</button>
+  <div class="content">
+    <div class="modal">
+      <div class="products">
+        <swiper-container
+          observer="true"
+          slides-per-view="4"
+          loop="true"
+          speed="500"
+          direction="horizontal"
+        >
+          @for(product of productsFound; track product.id){
+          <swiper-slide>
+            @if(product.id){
+            <div class="grid-product" (click)="goToProductDetails(product.id)">
+              <div class="grid-product-item grid-product-item-1">
+                <div class="product-card">
+                  @if(product.images[0] && urlChecking(product.images, 0)){
+                  <div
+                    class="product-image"
+                    [style.background-image]="
+                      product.images[0]
+                        ? 'url(' + cleanString(product.images[0]) + ')'
+                        : 'none'
+                    "
+                  ></div>
+                  } @else{
+                  <div class="product-no-image">
+                    <mat-icon class="material-symbols-outlined">
+                      no_photography</mat-icon
+                    >
+                  </div>
+
+                  }
+                </div>
+              </div>
+              <p class="grid-product-item grid-product-item-2">
+                {{ product.title }}
+              </p>
+              <p class="grid-product-item grid-product-item-3">
+                {{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}
+              </p>
+            </div>
+            }
+          </swiper-slide>
+          }
+        </swiper-container>
+      </div>
+    </div>
+  </div>
+</div>
+}

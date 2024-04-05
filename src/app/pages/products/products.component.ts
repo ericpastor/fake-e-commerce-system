@@ -60,6 +60,7 @@ export class ProductsComponent implements OnInit {
   public offset = 0;
   public limit = 10;
 
+  private cache: Record<number, Product[]> = [];
   private service = inject(CategoriesService);
   private store = inject(Store);
   private router = inject(Router);
@@ -76,6 +77,7 @@ export class ProductsComponent implements OnInit {
     }
     if (this.chosenCategoryFromHome() > 0) {
       this.filterByCategory(this.chosenCategoryFromHome());
+      this.getCategoryNameById(this.chosenCategoryFromHome());
     }
   }
 
@@ -91,6 +93,11 @@ export class ProductsComponent implements OnInit {
     this.store.select(getAllCategories).subscribe((response) => {
       this.categories = response;
     });
+  }
+
+  getCategoryNameById(id: number) {
+    const categoryFound = this.categories.find((c) => c.id === id);
+    if (categoryFound) this.selectedCategory = categoryFound.name;
   }
 
   fetchProductsWithPagination(offset: number, limit: number) {

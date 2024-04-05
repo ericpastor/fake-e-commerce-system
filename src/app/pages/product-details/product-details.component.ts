@@ -12,6 +12,7 @@ import { Product } from '../../models/Product';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { addToCart } from '../../store/Cart/Cart.Actions';
 
 @Component({
   selector: 'product-details',
@@ -42,6 +43,10 @@ export class ProductDetailsComponent {
     this.store.select(getProductById).subscribe((response) => {
       this.product = response;
     });
+  }
+
+  addToCart(product: Product) {
+    this.store.dispatch(addToCart({ product }));
   }
 
   cleanString(str: string) {

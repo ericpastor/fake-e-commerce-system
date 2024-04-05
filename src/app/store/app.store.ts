@@ -10,6 +10,8 @@ import {
   categoryByIdReducer,
   categoryReducer,
 } from './Category/Category.Reducer';
+import { CartModel } from '../models/CartItem';
+import { cartReducer } from './Cart/Cart.Reducer';
 
 export interface AppState {
   allProducts: ProductModel;
@@ -17,6 +19,7 @@ export interface AppState {
   productById: ProductByIdModel;
   categories: CategoryModel;
   categoryById: CategoryByIdModel;
+  cartItems: CartModel;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -25,4 +28,5 @@ export const appReducers: ActionReducerMap<AppState> = {
   productById: productByIdReducer,
   categories: categoryReducer,
   categoryById: categoryByIdReducer,
+  cartItems: cartReducer,
 };

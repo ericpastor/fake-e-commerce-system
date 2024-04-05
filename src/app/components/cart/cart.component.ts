@@ -1,0 +1,58 @@
+import { Component, OnInit, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import {
+  decrementQuantity,
+  incrementQuantity,
+  loadItems,
+  removeFromCart,
+} from '../../store/Cart/Cart.Actions';
+import { getItems } from '../../store/Cart/Cart.Selector';
+import { CartItem } from '../../models/CartItem';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'cart',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './cart.component.html',
+  styleUrl: './cart.component.scss',
+})
+export class CartComponent implements OnInit {
+  public items: CartItem[] = [];
+
+  private store = inject(Store);
+
+  ngOnInit(): void {
+    this.getItemsInCart();
+  }
+
+  getItemsInCart() {
+    this.store.dispatch(loadItems());
+    this.store.select(getItems).subscribe((response) => {
+      this.items = response;
+      console.log(this.items);
+    });
+  }
+
+  incrementQuantity(item: CartItem) {
+    this.store.dispatch(incrementQuantity({ cartItem: item }));
+  }
+
+  decrementQuantity(item: CartItem) {
+    this.store.dispatch(decrementQuantity({ cartItem: item }));
+  }
+
+  removeItem(item: CartItem) {
+    this.store.dispatch(removeFromCart({ cartItem: item }));
+  }
+
+  getTotal() {
+    return this.items.reduce((acc, item) => {
+      if (item && item.product && item.quantity) {
+        return acc + item.product.price * item.quantity;
+      } else {
+        return acc;
+      }
+    }, 0);
+  }
+}
