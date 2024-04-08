@@ -11,12 +11,15 @@ import { provideEffects } from '@ngrx/effects';
 import { ProductEffects } from './store/Product/Product.Effects';
 import { appReducers } from './store/app.store';
 import { CategoryEffects } from './store/Category/Category.Effects';
+import { cartItemsMetaReducer } from './store/Cart/Cart.Reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
-    provideStore(appReducers),
+    provideStore(appReducers, {
+      metaReducers: cartItemsMetaReducer as any,
+    }),
     provideEffects([ProductEffects, CategoryEffects]),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

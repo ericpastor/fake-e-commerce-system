@@ -1,4 +1,11 @@
-import { createReducer, on } from '@ngrx/store';
+import {
+  ActionReducer,
+  INIT,
+  MetaReducer,
+  UPDATE,
+  createReducer,
+  on,
+} from '@ngrx/store';
 import {
   addToCart,
   decrementQuantity,
@@ -8,6 +15,9 @@ import {
   removeFromCart,
 } from './Cart.Actions';
 import { cartInitialState } from './Cart.State';
+import { CartModel } from '../../models/CartItem';
+import { AppState } from '../app.store';
+import { environment } from '../../../environments/environment.development';
 
 export const cartReducer = createReducer(
   cartInitialState,
@@ -76,7 +86,7 @@ export const cartReducer = createReducer(
     const itemToDecrementQuantity = action.cartItem.product.id;
     if (itemToDecrementQuantity) {
       const updatedCartItems = state.cartItems.map((item) => {
-        if (item.product.id === itemToDecrementQuantity) {
+        if (item.product.id === itemToDecrementQuantity && item.quantity > 1) {
           return { ...item, quantity: item.quantity - 1 };
         }
         return item;
@@ -86,3 +96,33 @@ export const cartReducer = createReducer(
     return state;
   })
 );
+
+export function cartItemsLocalStorageReducer(
+  reducer: ActionReducer<AppState>
+): ActionReducer<AppState> {
+  let initialized = false;
+
+  return (state: AppState | undefined, action: any) => {
+    const nextState = reducer(state, action);
+
+    const savedCartState = localStorage.getItem(environment.cartState);
+    const parsedCartState: CartModel | undefined = savedCartState
+      ? JSON.parse(savedCartState)
+      : undefined;
+
+    if (parsedCartState && !initialized) {
+      nextState.cartItems = { ...nextState.cartItems, ...parsedCartState };
+    }
+
+    if (nextState.cartItems !== state?.cartItems) {
+      localStorage.setItem(
+        environment.cartState,
+        JSON.stringify(nextState.cartItems)
+      );
+    }
+    return nextState;
+  };
+}
+
+export const cartItemsMetaReducer: MetaReducer<AppState> =
+  cartItemsLocalStorageReducer;

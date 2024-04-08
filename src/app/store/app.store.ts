@@ -1,4 +1,4 @@
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { ProductByIdModel, ProductModel } from '../models/Product';
 import {
   allProducts,
