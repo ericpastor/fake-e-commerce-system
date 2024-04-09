@@ -12,11 +12,18 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { LatestProductsComponent } from '../latest-products/latest-products.component';
 
 @Component({
   selector: 'cart',
   standalone: true,
-  imports: [CommonModule, MatIconModule, NavbarComponent, MatDividerModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    NavbarComponent,
+    MatDividerModule,
+    LatestProductsComponent,
+  ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -53,6 +60,16 @@ export class CartComponent implements OnInit {
     return this.items.reduce((acc, item) => {
       if (item && item.product && item.quantity) {
         return acc + item.product.price * item.quantity;
+      } else {
+        return acc;
+      }
+    }, 0);
+  }
+
+  getQuantityOfItems() {
+    return this.items.reduce((acc, item) => {
+      if (item && item.product && item.quantity && item.quantity > 0) {
+        return acc + item.quantity;
       } else {
         return acc;
       }

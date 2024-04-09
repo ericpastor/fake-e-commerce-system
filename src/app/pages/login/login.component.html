@@ -1,5 +1,5 @@
 <div class="login">
-  <h1>Login to have your advatages as a men</h1>
+  <h1>Login to have your advatages and discounts</h1>
   <form (submit)="login($event)" [formGroup]="loginForm">
     <input type="text" placeholder="Email*" formControlName="email" />
     @if (email?.invalid && (email?.dirty || email?.touched)) {

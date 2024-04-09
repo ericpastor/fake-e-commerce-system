@@ -191,3 +191,28 @@
     height: 0.5px;
   }
 }
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    line-height: 100%;
+    text-align: center;
+    width: 100%;
+  }
+
+  hr {
+    width: 70%;
+    margin: 30px 0 30px 0;
+    background-color: #a9a9a9;
+    height: 1px;
+    align-self: center;
+  }
+}

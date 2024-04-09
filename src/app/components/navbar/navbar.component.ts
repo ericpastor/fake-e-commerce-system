@@ -5,10 +5,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
 import { SearchComponent } from '../search/search.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { CartItem } from '../../models/CartItem';
+import { loadItems } from '../../store/Cart/Cart.Actions';
+import { getItems } from '../../store/Cart/Cart.Selector';
 
 @Component({
   selector: 'navbar',
@@ -22,6 +27,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     MatTooltipModule,
     MatMenuModule,
     SearchComponent,
+    MatBadgeModule,
   ],
   animations: [
     trigger('zoomin', [
@@ -42,6 +48,15 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class NavbarComponent implements ControlValueAccessor {
+  public items: CartItem[] = [];
+  public hidden = true;
+
+  private store = inject(Store);
+
+  ngOnInit(): void {
+    this.getItemsInCart();
+  }
+
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -52,6 +67,30 @@ export class NavbarComponent implements ControlValueAccessor {
       return false;
     }
   }
+
+  getItemsInCart() {
+    this.store.dispatch(loadItems());
+    this.store.select(getItems).subscribe((response) => {
+      this.items = response;
+      console.log(this.items);
+    });
+  }
+
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
+
+  getQuantityOfItems() {
+    return this.items.reduce((acc, item) => {
+      if (item && item.product && item.quantity && item.quantity > 0) {
+        this.toggleBadgeVisibility();
+        return acc + item.quantity;
+      } else {
+        return acc;
+      }
+    }, 0);
+  }
+
   goHome() {
     this.router.navigate(['/']);
   }

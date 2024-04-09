@@ -39,9 +39,7 @@
     class="example-button"
     (click)="goHome()"
   >
-    <mat-icon
-      ><span class="material-symbols-outlined"> shopping_bag </span></mat-icon
-    >
+    <mat-icon> shopping_bag </mat-icon>
   </button>
   <span class="name">Fakee-commerce</span>
 
@@ -62,10 +60,12 @@
     aria-label="Example icon-button with menu icon"
     (click)="goToCart()"
   >
-    <mat-icon matBadge="15" matBadgeColor="warn">local_grocery_store</mat-icon>
-    <span class="cdk-visually-hidden">
-      Example with a home icon with overlaid badge showing the number 15
-    </span>
+    <mat-icon
+      matBadge="{{ getQuantityOfItems() }}"
+      matBadgeColor="warn"
+      [matBadgeHidden]="hidden"
+      >local_grocery_store</mat-icon
+    >
   </button>
 </mat-toolbar>
 
