@@ -9,11 +9,14 @@ import {
 import { getItems } from '../../store/Cart/Cart.Selector';
 import { CartItem } from '../../models/CartItem';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule, NavbarComponent, MatDividerModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -54,5 +57,26 @@ export class CartComponent implements OnInit {
         return acc;
       }
     }, 0);
+  }
+
+  cleanString(str: string) {
+    str = str.replace(/\\/g, '');
+    str = str.replace(/"/g, '');
+    str = str.replace(/\[/g, '');
+    str = str.replace(/\]/g, '');
+    return str;
+  }
+
+  urlChecking(array: string[], positonInArray: number): boolean {
+    if (
+      this.cleanString(array[positonInArray]).startsWith('http') &&
+      (this.cleanString(array[positonInArray]).includes('jpg') ||
+        this.cleanString(array[positonInArray]).includes('jpeg') ||
+        this.cleanString(array[positonInArray]).includes('png') ||
+        this.cleanString(array[positonInArray]).includes('image'))
+    ) {
+      return true;
+    }
+    return false;
   }
 }

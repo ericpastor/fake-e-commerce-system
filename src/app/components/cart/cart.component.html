@@ -1,12 +1,78 @@
-<p>cart works!</p>
-<h1>CArt</h1>
-@for(item of items; track item.product.id){
-<p>{{ item.quantity }}</p>
-<p>{{ item.product.title }}</p>
-<button (click)="removeItem(item)">remove</button>
+<navbar />
+<div class="cart">
+  <div class="grid-cart">
+    <div class="grid-cart-item grid-cart-item-1">
+      @for (item of items; track item.product.id) {
+      <div class="product">
+        <div class="grid-product">
+          <div class="grid-product-item grid-product-item-1">
+            @if(item.product.images[0] && urlChecking(item.product.images, 0) ){
+            <div
+              class="image"
+              [style.background-image]="
+                item.product.images[0]
+                  ? 'url(' + cleanString(item.product.images[0]) + ')'
+                  : 'none'
+              "
+            ></div>
 
-<p>Quantity: {{ item.quantity }}</p>
-<button (click)="incrementQuantity(item)">+</button>
-<button (click)="decrementQuantity(item)">-</button>
-}
-<p>Total: {{ getTotal() }}</p>
+            } @else{
+            <div class="no-image">
+              <mat-icon class="material-symbols-outlined">
+                no_photography</mat-icon
+              >
+            </div>
+
+            }
+          </div>
+          <h1 class="grid-product-item grid-product-item-2">
+            {{ item.product.title }}
+          </h1>
+          <p class="grid-product-item grid-product-item-3">
+            {{ item.product.description.slice(0, 100) }}...
+          </p>
+          <div class="grid-product-item grid-product-item-4">
+            <button class="buttons" (click)="decrementQuantity(item)">-</button>
+            {{ item.quantity }}
+            <button class="buttons" (click)="incrementQuantity(item)">+</button>
+          </div>
+          <div class="grid-product-item grid-product-item-5">
+            <p>
+              Price:
+              {{
+                item.product.price * item.quantity
+                  | currency : "EUR" : "symbol" : "1.2-2"
+              }}
+            </p>
+          </div>
+
+          <div class="grid-product-item grid-product-item-6">
+            <button
+              class="buttons"
+              mat-icon-button
+              aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+              (click)="removeItem(item)"
+            >
+              <mat-icon
+                ><span class="material-symbols-outlined">
+                  delete
+                </span></mat-icon
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="grid-cart-item grid-cart-item-2">
+      <h1>Summary</h1>
+      <hr />
+      <div class="total">
+        <p>Total:</p>
+        <p>{{ getTotal() | currency : "EUR" : "symbol" : "1.2-2" }}</p>
+      </div>
+      <hr />
+      <button>Checkout</button>
+    </div>
+  </div>
+</div>

@@ -112,6 +112,7 @@ export function cartItemsLocalStorageReducer(
 
     if (parsedCartState && !initialized) {
       nextState.cartItems = { ...nextState.cartItems, ...parsedCartState };
+      initialized = true;
     }
 
     if (nextState.cartItems !== state?.cartItems) {
@@ -120,6 +121,7 @@ export function cartItemsLocalStorageReducer(
         JSON.stringify(nextState.cartItems)
       );
     }
+
     return nextState;
   };
 }
