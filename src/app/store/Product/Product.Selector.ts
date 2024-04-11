@@ -10,7 +10,7 @@ const getProductByIdState =
   createFeatureSelector<ProductByIdModel>('productById');
 
 export const getAllProducts = createSelector(getProductState, (state) => {
-  return state.products;
+  return state;
 });
 
 export const getAllProductsWithPagination = createSelector(

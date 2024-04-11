@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 300px;
+}
+
+.title {
+  width: 325px;
+  height: 50px;
+  background-color: rgb(211, 211, 211);
+  margin: 0% auto 2% 5%;
+}
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 5%;
+}
+.card {
+  width: 280px;
+  height: 280px;
+  background-color: rgb(211, 211, 211);
+  margin-right: 15px;
+}

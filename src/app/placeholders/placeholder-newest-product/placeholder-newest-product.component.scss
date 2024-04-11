@@ -1,0 +1,40 @@
+.newest-product {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 190px 15% 40px 15%;
+
+  .subtitle {
+    width: 50px;
+    height: 25px;
+    background-color: rgb(211, 211, 211);
+    margin-bottom: 15px;
+  }
+
+  .title {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(211, 211, 211);
+    margin-bottom: 40px;
+  }
+
+  .description {
+    width: 350px;
+    height: 25px;
+    background-color: rgb(211, 211, 211);
+    margin-bottom: 40px;
+  }
+
+  button {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    padding: 10px 15px;
+    font-weight: 100;
+    border: none;
+    border-radius: 1.5rem;
+    background: rgb(211, 211, 211);
+    color: rgb(211, 211, 211);
+  }
+}

@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
-import { shareReplay, takeUntil } from 'rxjs/operators';
+import { Component, OnInit, Signal, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -7,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Product } from '../../models/Product';
+import { Product, ProductModel } from '../../models/Product';
 import {
   loadAllProducts,
   loadProductsWithPagination,
@@ -18,14 +17,16 @@ import {
 } from '../../store/Product/Product.Selector';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { loadCategories } from '../../store/Category/Category.Actions';
-import { getAllCategories } from '../../store/Category/Category.Selector';
-import { Category } from '../../models/Category';
+import {
+  getAllCategories,
+  getAllCategoriesInfo,
+} from '../../store/Category/Category.Selector';
+import { Category, CategoryModel } from '../../models/Category';
 import { CategoriesComponent } from '../../components/categories/categories.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CommonModule } from '@angular/common';
 import { CategoriesService } from '../../services/categories.service';
-import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'products',
@@ -49,9 +50,9 @@ import { Subject, Subscription } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
   public products: Product[] = [];
-  public totalProducts: Product[] = [];
-  public filteredProducts: Product[] = [];
-  public categories: Category[] = [];
+  public totalProducts: ProductModel = { products: [], errorMessage: '' };
+  public filteredProducts: ProductModel = { products: [], errorMessage: '' };
+  public categories!: CategoryModel;
   chosenCategoryFromHome!: Signal<number>;
   public selectedCategory = '';
   public panelOpenState = false;
@@ -76,7 +77,7 @@ export class ProductsComponent implements OnInit {
       this.fetchProductsWithPagination(0, 10);
     }
     if (this.chosenCategoryFromHome() > 0) {
-      this.filterByCategory(this.chosenCategoryFromHome());
+      this.filterProductsByCategory(this.chosenCategoryFromHome());
       this.getCategoryNameById(this.chosenCategoryFromHome());
     }
   }
@@ -90,53 +91,73 @@ export class ProductsComponent implements OnInit {
 
   fetchCategories() {
     this.store.dispatch(loadCategories());
-    this.store.select(getAllCategories).subscribe((response) => {
+    this.store.select(getAllCategoriesInfo).subscribe((response) => {
       this.categories = response;
     });
   }
 
   getCategoryNameById(id: number) {
-    const categoryFound = this.categories.find((c) => c.id === id);
+    const categoryFound = this.categories.categories.find((c) => c.id === id);
     if (categoryFound) this.selectedCategory = categoryFound.name;
   }
-
   fetchProductsWithPagination(offset: number, limit: number) {
     if (this.chosenCategoryFromHome() === 0 && this.categoryId === 0) {
       this.store.dispatch(loadProductsWithPagination({ offset, limit }));
+
       this.store.select(getAllProductsWithPagination).subscribe((response) => {
-        this.totalProducts = this.totalProducts.concat(response);
-        this.products = this.products.concat(response);
+        if (response && response.length > 0) {
+          this.totalProducts.products =
+            this.totalProducts.products.concat(response);
+          this.products = this.products.concat(response);
+        }
       });
     }
   }
 
   sortByHighestPrice() {
-    this.totalProducts.sort((a, b) => b.price - a.price);
+    this.totalProducts.products.sort((a, b) => b.price - a.price);
   }
 
   sortByLowestPrice() {
-    this.totalProducts.sort((a, b) => a.price - b.price);
+    this.totalProducts.products.sort((a, b) => a.price - b.price);
   }
+
+  filterProductsByCategory(categoryId: number) {
+    if (categoryId === 0) {
+      this.categoryId = 0;
+      this.totalProducts.products = this.products;
+    } else {
+      this.categoryId = categoryId;
+      this.filterProductsByCategory(categoryId);
+    }
+  }
+
   filterByCategory(categoryId: number) {
+    this.totalProducts.products = [];
     this.service.setCategoryIdToZero();
     this.store.dispatch(loadAllProducts());
     this.categoryId = categoryId;
     this.store.select(getAllProducts).subscribe((response) => {
       if (categoryId) {
-        this.filteredProducts = response.filter(
+        this.filteredProducts.products = response.products.filter(
           (p) => p.category.id === categoryId
         );
       }
-      this.totalProducts = this.filteredProducts;
+      if (
+        this.filteredProducts &&
+        this.filteredProducts.products &&
+        this.filteredProducts.products.length > 0
+      ) {
+        this.totalProducts.products = this.filteredProducts.products;
+      }
     });
   }
 
   resetFilters() {
-    this.totalProducts = [];
     this.categoryId = 0;
     this.service.setCategoryIdToZero();
     this.selectedCategory = 'All Categories';
-    this.totalProducts = this.products;
+    this.filterProductsByCategory(0);
   }
 
   onScroll(categoryId: number) {

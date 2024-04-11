@@ -1,28 +1,23 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  Component,
-  EventEmitter,
-  Output,
-  inject,
-} from '@angular/core';
-import { Category } from '../../models/Category';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
+import { CategoryModel } from '../../models/Category';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { getAllCategories } from '../../store/Category/Category.Selector';
+import { getAllCategoriesInfo } from '../../store/Category/Category.Selector';
 import { loadCategories } from '../../store/Category/Category.Actions';
 import { NgStyle } from '@angular/common';
 import { CategoriesService } from '../../services/categories.service';
+import { PlaceholderSlidesComponent } from '../../placeholders/placeholder-slides/placeholder-slides.component';
 
 @Component({
   selector: 'categories',
   standalone: true,
-  imports: [NgStyle],
+  imports: [NgStyle, PlaceholderSlidesComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CategoriesComponent {
-  public categories: Category[] = [];
+  categoriesInfo!: CategoryModel;
 
   private store = inject(Store);
   private router = inject(Router);
@@ -34,8 +29,8 @@ export class CategoriesComponent {
 
   fetchAllCategories() {
     this.store.dispatch(loadCategories());
-    this.store.select(getAllCategories).subscribe((response) => {
-      this.categories = response;
+    this.store.select(getAllCategoriesInfo).subscribe((res) => {
+      this.categoriesInfo = res;
     });
   }
 

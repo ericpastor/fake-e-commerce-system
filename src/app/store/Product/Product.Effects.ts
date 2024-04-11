@@ -22,7 +22,7 @@ export class ProductEffects {
   loadAllProducts = createEffect(() =>
     this.action.pipe(
       ofType(loadAllProducts),
-      exhaustMap(() =>
+      exhaustMap((action) =>
         this.productsService.getAllProducts().pipe(
           map((products) => loadAllProductsSuccess({ products })),
           catchError((error) =>

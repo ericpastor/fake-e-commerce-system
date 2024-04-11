@@ -5,11 +5,12 @@ import {
   inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Product } from '../../models/Product';
-import { ProductsService } from '../../services/products.service';
+import { ProductModel } from '../../models/Product';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { Store } from '@ngrx/store';
+import { loadAllProducts } from '../../store/Product/Product.Actions';
+import { getAllProducts } from '../../store/Product/Product.Selector';
 
 @Component({
   selector: 'latest-products',
@@ -19,29 +20,46 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './latest-products.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class LatestProductsComponent implements OnInit {
-  latestProducts!: Product[];
-  public products!: Observable<Product[]>;
+export class LatestProductsComponent {
+  infoProducts: ProductModel = { products: [], errorMessage: '' };
+  latestProducts: ProductModel = { products: [], errorMessage: '' };
 
-  private productsService = inject(ProductsService);
+  private store = inject(Store);
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.fetchLatestProducts();
+    this.fetchAllProducts();
   }
 
-  fetchLatestProducts() {
-    this.products = this.productsService.getAllProducts();
+  fetchAllProducts() {
+    this.store.dispatch(loadAllProducts());
+    this.store.select(getAllProducts).subscribe((res) => {
+      this.infoProducts = res;
+      this.getLatestProducts();
+    });
+  }
 
-    this.products.subscribe((products) => {
-      products.sort((a, b) =>
-        a.creationAt && b.creationAt
-          ? new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()
-          : a.category.id! - b.category.id!
+  getLatestProducts() {
+    if (
+      this.infoProducts &&
+      this.infoProducts.products &&
+      this.infoProducts.products.length > 0
+    ) {
+      const productsWithCreationDate = this.infoProducts.products
+        .filter((product) => product.creationAt)
+        .map((product) => ({
+          ...product,
+          creationDate: new Date(product.creationAt!),
+        }));
+
+      productsWithCreationDate.sort(
+        (a, b) => b.creationDate.getTime() - a.creationDate.getTime()
       );
 
-      this.latestProducts = products.slice(0, 9);
-    });
+      const latestProductsSlice = productsWithCreationDate.slice(0, 9);
+
+      this.latestProducts.products = latestProductsSlice;
+    }
   }
 
   goToProductDetails(id: number) {

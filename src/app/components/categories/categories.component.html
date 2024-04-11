@@ -1,5 +1,6 @@
-<h1>Categories</h1>
+@if(!categoriesInfo.errorMessage){
 <div class="categories">
+  <h1>Categories</h1>
   <swiper-container
     loop="true"
     navigation="true"
@@ -8,7 +9,7 @@
     mousewheel="true"
     direction="horizontal"
   >
-    @for(category of categories; track category.id){
+    @for(category of categoriesInfo.categories; track category.id){
     <swiper-slide>
       <div class="category-card">
         <div
@@ -26,3 +27,20 @@
     }
   </swiper-container>
 </div>
+} @if(categoriesInfo.errorMessage){
+<div class="error">
+  <hr />
+  <h1>Error ocurred loading categories</h1>
+  <p>{{ categoriesInfo.errorMessage }}</p>
+  <hr />
+</div>
+} @if(!categoriesInfo.errorMessage && categoriesInfo.categories.length === 0){
+@defer(on timer (2000ms)){
+
+<div class="error">
+  <hr />
+  <h1>Sorry, but we do not have any category at this moment</h1>
+  <p>{{ categoriesInfo.errorMessage }}</p>
+  <hr />
+</div>
+} }

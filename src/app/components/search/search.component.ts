@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
-import { Product } from '../../models/Product';
+import { Product, ProductModel } from '../../models/Product';
 import { Store } from '@ngrx/store';
 import { loadAllProducts } from '../../store/Product/Product.Actions';
 import { getAllProducts } from '../../store/Product/Product.Selector';
@@ -31,7 +31,7 @@ import { Subscription } from 'rxjs';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SearchComponent {
-  public productsToFilter: Product[] = [];
+  public productsToFilter!: ProductModel;
   public productsFound: Product[] = [];
   public alreadyFetched: boolean = false;
 
@@ -61,7 +61,7 @@ export class SearchComponent {
     }
     this.formGroup.valueChanges.subscribe((value) => {
       if (typeof value.title === 'string') {
-        this.productsFound = this.productsToFilter.filter((p) =>
+        this.productsFound = this.productsToFilter.products.filter((p) =>
           p.title.toLocaleLowerCase().includes(value.title!.toLocaleLowerCase())
         );
         console.log('Productos encontrados:', this.productsFound);

@@ -1,8 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
-import { Product } from '../../models/Product';
+import { Product, ProductModel } from '../../models/Product';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadAllProducts } from '../../store/Product/Product.Actions';
+import { getAllProducts } from '../../store/Product/Product.Selector';
 
 @Component({
   selector: 'newest-product',
@@ -12,28 +15,45 @@ import { Router } from '@angular/router';
   styleUrl: './newest-product.component.scss',
 })
 export class NewestProductComponent implements OnInit {
+  infoProducts: ProductModel = { products: [], errorMessage: '' };
   newestProduct!: Product;
-  public products!: Observable<Product[]>;
 
-  private productsService = inject(ProductsService);
+  private store = inject(Store);
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.fetchNewestProduct();
+    this.fetchAllProducts();
+  }
+
+  fetchAllProducts() {
+    this.store.dispatch(loadAllProducts());
+    this.store.select(getAllProducts).subscribe((res) => {
+      this.infoProducts = res;
+      this.fetchNewestProduct();
+    });
   }
 
   fetchNewestProduct() {
-    this.products = this.productsService.getAllProducts();
+    if (
+      this.infoProducts &&
+      this.infoProducts.products &&
+      this.infoProducts.products.length > 0
+    ) {
+      const productsWithCreationDate = this.infoProducts.products
+        .filter((product) => product.creationAt)
+        .map((product) => ({
+          ...product,
+          creationDate: new Date(product.creationAt!),
+        }));
 
-    this.products.subscribe((products) => {
-      products.sort((a, b) =>
-        a.creationAt && b.creationAt
-          ? new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime()
-          : a.category.id! - b.category.id!
+      productsWithCreationDate.sort(
+        (a, b) => b.creationDate.getTime() - a.creationDate.getTime()
       );
 
-      this.newestProduct = products[0];
-    });
+      const latestProductsSlice = productsWithCreationDate[0];
+
+      this.newestProduct = latestProductsSlice;
+    }
   }
 
   goToProductDetails() {

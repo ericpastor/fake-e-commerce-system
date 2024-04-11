@@ -9,6 +9,13 @@ export const getAllCategories = createSelector(getCategoryState, (state) => {
   return state.categories;
 });
 
+export const getAllCategoriesInfo = createSelector(
+  getCategoryState,
+  (state) => {
+    return state;
+  }
+);
+
 export const getCategoryById = createSelector(getCategoryByIdState, (state) => {
   return state.category;
 });

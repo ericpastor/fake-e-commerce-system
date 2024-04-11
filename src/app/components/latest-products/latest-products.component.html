@@ -1,6 +1,6 @@
-<h1>Latest Products</h1>
-
+@if(latestProducts.products && !infoProducts.errorMessage){
 <div class="products">
+  <h1>Latest Products</h1>
   <swiper-container
     loop="true"
     navigation="true"
@@ -9,7 +9,7 @@
     mousewheel="true"
     direction="horizontal"
   >
-    @for(product of latestProducts; track product.id){
+    @for(product of latestProducts.products; track product.id){
     <swiper-slide>
       @if(product.id){
       <div class="grid-product" (click)="goToProductDetails(product.id)">
@@ -44,3 +44,22 @@
     }
   </swiper-container>
 </div>
+
+} @if(infoProducts.errorMessage){
+<div class="error">
+  <hr />
+  <h1>Error ocurred loading products</h1>
+  <p>{{ infoProducts.errorMessage }}</p>
+  <hr />
+</div>
+} @if(infoProducts.products.length ===0 && !infoProducts.errorMessage){
+  @defer(on timer (2000ms)){
+    <div class="error">
+      <hr />
+      <h1>Sorry, but we do not have products at this moment</h1>
+      <p>{{ infoProducts.errorMessage }}</p>
+      <hr />
+    </div>
+  }
+
+}

@@ -5,10 +5,9 @@ h1 {
   font-optical-sizing: auto;
   font-size: 3rem;
   font-weight: 900;
-  margin-bottom: 40px;
   line-height: 100%;
   text-align: start;
-  margin: 10% auto auto 5%;
+  margin: 7.5% auto 2% 5%;
 }
 p {
   font-family: "Tilt Warp", sans-serif;
@@ -81,4 +80,26 @@ swiper-slide:first-child {
 .grid-product-item-3 {
   grid-area: box3;
   margin-top: -5px;
+}
+.error {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+    line-height: 100%;
+    text-align: center;
+  }
+  hr {
+    width: 90%;
+    margin: 30px 0 30px 0;
+    background-color: #a9a9a9;
+    height: 0.5px;
+  }
 }

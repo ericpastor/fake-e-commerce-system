@@ -72,7 +72,6 @@ export class NavbarComponent implements ControlValueAccessor {
     this.store.dispatch(loadItems());
     this.store.select(getItems).subscribe((response) => {
       this.items = response;
-      console.log(this.items);
     });
   }
 

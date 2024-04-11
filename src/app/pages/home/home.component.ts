@@ -10,6 +10,8 @@ import { ProductsComponent } from '../products/products.component';
 import { NewestProductComponent } from '../../components/newest-product/newest-product.component';
 import { CategoriesComponent } from '../../components/categories/categories.component';
 import { LatestProductsComponent } from '../../components/latest-products/latest-products.component';
+import { PlaceholderNewestProductComponent } from '../../placeholders/placeholder-newest-product/placeholder-newest-product.component';
+import { PlaceholderSlidesComponent } from '../../placeholders/placeholder-slides/placeholder-slides.component';
 
 @Component({
   selector: 'home',
@@ -27,6 +29,8 @@ import { LatestProductsComponent } from '../../components/latest-products/latest
     NewestProductComponent,
     CategoriesComponent,
     LatestProductsComponent,
+    PlaceholderNewestProductComponent,
+    PlaceholderSlidesComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
