@@ -13,13 +13,60 @@
   right: 0;
   font-family: "Tilt Warp", sans-serif;
 
+  h1 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 130%;
+    text-align: center;
+  }
+
   form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     width: 35%;
   }
 
+  input {
+    height: 30px;
+  }
+  .login-button {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    padding: 10px 15px;
+    font-weight: 100;
+    border: none;
+    border-radius: 1.5rem;
+    background: black;
+    color: white;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    &:hover {
+      background-color: rgb(241, 241, 241);
+      color: #191919;
+    }
+  }
+
+  .home-button {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    padding: 10px 15px;
+    font-weight: 100;
+    border: none;
+    border-radius: 1.5rem;
+    background: rgb(241, 241, 241);
+    color: #191919;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
   span {
     color: red;
     font-size: xx-small;

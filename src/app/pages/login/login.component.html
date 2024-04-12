@@ -1,5 +1,8 @@
 <div class="login">
-  <h1>Login to have your advatages and discounts</h1>
+  <h1>
+    Login to have your <br />
+    advatages and discounts
+  </h1>
   <form (submit)="login($event)" [formGroup]="loginForm">
     <input type="text" placeholder="Email*" formControlName="email" />
     @if (email?.invalid && (email?.dirty || email?.touched)) {
@@ -12,6 +15,11 @@
     <span>Password is required</span>
     }
 
-    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    <button class="login-button" type="submit" [disabled]="!loginForm.valid">
+      Login
+    </button>
+    <button class="home-button" (click)="goHome()">
+      Back to the Home Page
+    </button>
   </form>
 </div>

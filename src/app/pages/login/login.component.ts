@@ -9,18 +9,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
-  // user?: any;
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -45,5 +45,9 @@ export class LoginComponent {
         alert('Logged in!');
         this.router.navigate(['/']);
       });
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
   }
 }

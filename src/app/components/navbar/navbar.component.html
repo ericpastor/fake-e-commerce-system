@@ -1,12 +1,12 @@
 <mat-toolbar class="pre-toolbar">
-  <mat-icon @zoomin>directions_boat</mat-icon>
-
+  <button mat-icon-button class="example-button" (click)="openShipDialog()">
+    <mat-icon @zoomin> directions_boat </mat-icon>
+  </button>
   <span class="second-spacer"></span>
 
   <div class="pre-toolbar-links">
     <a mat-button (click)="goHome()" target="_blank">Home</a>
-    <a mat-button href="https://www.google.com/" target="_blank">Contact us</a>
-    <a mat-button href="https://www.google.com/" target="_blank">Help</a>
+    <a mat-button (click)="openContactUsDialog()">Contact us</a>
     @if(loggedIn()){
     <a mat-button (click)="logout()">Logout</a>
     }@else {
@@ -25,10 +25,7 @@
       <button mat-menu-item>Item 2</button>
     </mat-menu>
     <div class="button-row">
-      <a
-        mat-button
-        (click)="handleScroll('categories')"
-        target="_blank"
+      <a mat-button (click)="handleScroll('categories')" target="_blank"
         >Categories</a
       >
       <a mat-button (click)="goToProducts()" target="_blank">Products</a>

@@ -15,6 +15,9 @@ import { CartItem } from '../../models/CartItem';
 import { loadItems } from '../../store/Cart/Cart.Actions';
 import { getItems } from '../../store/Cart/Cart.Selector';
 import { timeout } from 'rxjs';
+import { DialogShipmentFreeComponent } from '../../dialogs/dialog-shipment-free/dialog-shipment-free.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogContactUsComponent } from '../../dialogs/dialog-contact-us/dialog-contact-us.component';
 
 @Component({
   selector: 'navbar',
@@ -61,6 +64,15 @@ export class NavbarComponent implements ControlValueAccessor {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
+
+  openShipDialog() {
+    this.dialog.open(DialogShipmentFreeComponent);
+  }
+
+  openContactUsDialog() {
+    this.dialog.open(DialogContactUsComponent);
+  }
 
   handleScroll = (targetId: string) => {
     this.goHome();
