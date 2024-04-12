@@ -28,6 +28,9 @@
     gap: 20px;
     width: 35%;
   }
+  input:focus {
+    outline: none;
+  }
 
   input {
     height: 30px;
@@ -70,5 +73,6 @@
   span {
     color: red;
     font-size: xx-small;
+    line-height: 0%;
   }
 }

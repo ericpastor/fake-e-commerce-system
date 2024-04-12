@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { LatestProductsComponent } from '../latest-products/latest-products.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'cart',
@@ -28,9 +29,11 @@ import { LatestProductsComponent } from '../latest-products/latest-products.comp
   styleUrl: './cart.component.scss',
 })
 export class CartComponent implements OnInit {
+  public shipmentPrice!: number;
   public items: CartItem[] = [];
 
   private store = inject(Store);
+  private authService = inject(AuthService);
 
   ngOnInit(): void {
     this.getItemsInCart();
@@ -66,6 +69,14 @@ export class CartComponent implements OnInit {
     }, 0);
   }
 
+  getTotalPlusShipment() {
+    if (typeof this.shipmentPrice === 'number') {
+      return this.getTotal() + this.shipmentPrice;
+    } else {
+      return this.getTotal() + 0;
+    }
+  }
+
   getQuantityOfItems() {
     return this.items.reduce((acc, item) => {
       if (item && item.product && item.quantity && item.quantity > 0) {
@@ -74,6 +85,14 @@ export class CartComponent implements OnInit {
         return acc;
       }
     }, 0);
+  }
+
+  getShipmentPrice() {
+    if (this.authService.isLoggedIn()) {
+      return (this.shipmentPrice = 0);
+    } else {
+      return (this.shipmentPrice = 5);
+    }
   }
 
   cleanString(str: string) {

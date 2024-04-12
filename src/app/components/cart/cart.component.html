@@ -68,9 +68,26 @@
     <div class="grid-cart-item grid-cart-item-2">
       <h1>Summary</h1>
       <hr />
+      <div class="charges">
+        <p>Subtotal:</p>
+        <p>{{ getTotal() | currency : "EUR" : "symbol" : "1.2-2" }}</p>
+      </div>
+
+      <div class="charges">
+        <p>Shipment:</p>
+        @if(getShipmentPrice() === 0){
+        <p class="member">Free shipment</p>
+        }
+        <p>
+          {{ getShipmentPrice() | currency : "EUR" : "symbol" : "1.2-2" }}
+        </p>
+      </div>
+
       <div class="total">
         <p>Total:</p>
-        <p>{{ getTotal() | currency : "EUR" : "symbol" : "1.2-2" }}</p>
+        <p>
+          {{ getTotalPlusShipment() | currency : "EUR" : "symbol" : "1.2-2" }}
+        </p>
       </div>
       <hr />
       <button>Checkout</button>
