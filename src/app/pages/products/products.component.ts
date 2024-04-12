@@ -27,6 +27,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CommonModule } from '@angular/common';
 import { CategoriesService } from '../../services/categories.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'products',
@@ -61,6 +62,8 @@ export class ProductsComponent implements OnInit {
   public offset = 0;
   public limit = 10;
 
+  categorySubscription!: Subscription;
+
   private cache: Record<number, Product[]> = [];
   private service = inject(CategoriesService);
   private store = inject(Store);
@@ -91,9 +94,11 @@ export class ProductsComponent implements OnInit {
 
   fetchCategories() {
     this.store.dispatch(loadCategories());
-    this.store.select(getAllCategoriesInfo).subscribe((response) => {
-      this.categories = response;
-    });
+    this.categorySubscription = this.store
+      .select(getAllCategoriesInfo)
+      .subscribe((response) => {
+        this.categories = response;
+      });
   }
 
   getCategoryNameById(id: number) {
@@ -106,9 +111,9 @@ export class ProductsComponent implements OnInit {
 
       this.store.select(getAllProductsWithPagination).subscribe((response) => {
         if (response && response.length > 0) {
-          this.totalProducts.products =
-            this.totalProducts.products.concat(response);
-          this.products = this.products.concat(response);
+          this.totalProducts.products = response;
+          // this.totalProducts.products.concat(response);
+          // this.products = this.products.concat(response);
         }
       });
     }
@@ -201,5 +206,12 @@ export class ProductsComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  ngOnDestroy(): void {
+    // Desuscribirse para evitar fugas de memoria
+    if (this.categorySubscription) {
+      this.categorySubscription.unsubscribe();
+    }
   }
 }

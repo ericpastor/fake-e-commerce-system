@@ -1,4 +1,10 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CategoryModel } from '../../models/Category';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -7,6 +13,7 @@ import { loadCategories } from '../../store/Category/Category.Actions';
 import { NgStyle } from '@angular/common';
 import { CategoriesService } from '../../services/categories.service';
 import { PlaceholderSlidesComponent } from '../../placeholders/placeholder-slides/placeholder-slides.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'categories',
@@ -16,8 +23,10 @@ import { PlaceholderSlidesComponent } from '../../placeholders/placeholder-slide
   styleUrl: './categories.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit, OnDestroy {
   categoriesInfo!: CategoryModel;
+
+  categorySubscription!: Subscription;
 
   private store = inject(Store);
   private router = inject(Router);
@@ -45,5 +54,11 @@ export class CategoriesComponent {
   handleClick(categoryId: number) {
     this.service.setChosenCategoryId(categoryId);
     this.goToProducts();
+  }
+
+  ngOnDestroy(): void {
+    if (this.categorySubscription) {
+      this.categorySubscription.unsubscribe();
+    }
   }
 }

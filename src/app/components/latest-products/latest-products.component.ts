@@ -1,6 +1,7 @@
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -11,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { loadAllProducts } from '../../store/Product/Product.Actions';
 import { getAllProducts } from '../../store/Product/Product.Selector';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'latest-products',
@@ -20,23 +22,29 @@ import { getAllProducts } from '../../store/Product/Product.Selector';
   styleUrl: './latest-products.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class LatestProductsComponent {
+export class LatestProductsComponent implements OnInit, OnDestroy {
   infoProducts: ProductModel = { products: [], errorMessage: '' };
   latestProducts: ProductModel = { products: [], errorMessage: '' };
+
+  productSubscription!: Subscription;
 
   private store = inject(Store);
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.fetchAllProducts();
+    if (this.infoProducts.products.length === 0) {
+      this.fetchAllProducts();
+    }
   }
 
   fetchAllProducts() {
     this.store.dispatch(loadAllProducts());
-    this.store.select(getAllProducts).subscribe((res) => {
-      this.infoProducts = res;
-      this.getLatestProducts();
-    });
+    this.productSubscription = this.store
+      .select(getAllProducts)
+      .subscribe((res) => {
+        this.infoProducts = res;
+        this.getLatestProducts();
+      });
   }
 
   getLatestProducts() {
@@ -85,5 +93,11 @@ export class LatestProductsComponent {
       return true;
     }
     return false;
+  }
+
+  ngOnDestroy(): void {
+    if (this.productSubscription) {
+      this.productSubscription.unsubscribe();
+    }
   }
 }

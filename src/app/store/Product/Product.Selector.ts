@@ -23,3 +23,5 @@ export const getAllProductsWithPagination = createSelector(
 export const getProductById = createSelector(getProductByIdState, (state) => {
   return state.product;
 });
+
+

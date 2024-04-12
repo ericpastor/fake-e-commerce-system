@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { CartItem } from '../../models/CartItem';
 import { loadItems } from '../../store/Cart/Cart.Actions';
 import { getItems } from '../../store/Cart/Cart.Selector';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'navbar',
@@ -50,6 +51,7 @@ import { getItems } from '../../store/Cart/Cart.Selector';
 export class NavbarComponent implements ControlValueAccessor {
   public items: CartItem[] = [];
   public hidden = true;
+  public targetId!: string;
 
   private store = inject(Store);
 
@@ -59,6 +61,17 @@ export class NavbarComponent implements ControlValueAccessor {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  handleScroll = (targetId: string) => {
+    this.goHome();
+    setTimeout(() => {
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 500);
+  };
 
   public loggedIn(): boolean {
     if (this.authService.isLoggedIn()) {

@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product, ProductModel } from '../../models/Product';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadAllProducts } from '../../store/Product/Product.Actions';
@@ -14,9 +14,11 @@ import { getAllProducts } from '../../store/Product/Product.Selector';
   templateUrl: './newest-product.component.html',
   styleUrl: './newest-product.component.scss',
 })
-export class NewestProductComponent implements OnInit {
+export class NewestProductComponent implements OnInit, OnDestroy {
   infoProducts: ProductModel = { products: [], errorMessage: '' };
   newestProduct!: Product;
+
+  productSubscription!: Subscription;
 
   private store = inject(Store);
   private router = inject(Router);
@@ -58,5 +60,11 @@ export class NewestProductComponent implements OnInit {
 
   goToProductDetails() {
     this.router.navigate([`/products/${this.newestProduct.id}`]);
+  }
+
+  ngOnDestroy(): void {
+    if (this.productSubscription) {
+      this.productSubscription.unsubscribe();
+    }
   }
 }
