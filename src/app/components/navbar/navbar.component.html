@@ -60,10 +60,7 @@
     aria-label="Example icon-button with menu icon"
     (click)="goToCart()"
   >
-    <mat-icon
-      matBadge="{{ getQuantityOfItems() }}"
-      matBadgeColor="warn"
-      [matBadgeHidden]="hidden"
+    <mat-icon matBadge="{{ getQuantityOfItems() }}" matBadgeColor="warn"
       >local_grocery_store</mat-icon
     >
   </button>

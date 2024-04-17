@@ -17,11 +17,8 @@ import {
 } from '../../store/Product/Product.Selector';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { loadCategories } from '../../store/Category/Category.Actions';
-import {
-  getAllCategories,
-  getAllCategoriesInfo,
-} from '../../store/Category/Category.Selector';
-import { Category, CategoryModel } from '../../models/Category';
+import { getAllCategoriesInfo } from '../../store/Category/Category.Selector';
+import { CategoryModel } from '../../models/Category';
 import { CategoriesComponent } from '../../components/categories/categories.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
@@ -50,8 +47,13 @@ import { Subscription } from 'rxjs';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent implements OnInit {
+  public allLoadedProducts: Product[] = [];
   public products: Product[] = [];
   public totalProducts: ProductModel = { products: [], errorMessage: '' };
+  public productsWithPagination: ProductModel = {
+    products: [],
+    errorMessage: '',
+  };
   public filteredProducts: ProductModel = { products: [], errorMessage: '' };
   public categories!: CategoryModel;
   chosenCategoryFromHome!: Signal<number>;
@@ -62,9 +64,11 @@ export class ProductsComponent implements OnInit {
   public offset = 0;
   public limit = 10;
 
-  categorySubscription!: Subscription;
+  public totalIsActive = true;
 
-  private cache: Record<number, Product[]> = [];
+  categorySubscription!: Subscription;
+  productSubscription!: Subscription;
+
   private service = inject(CategoriesService);
   private store = inject(Store);
   private router = inject(Router);
@@ -80,8 +84,7 @@ export class ProductsComponent implements OnInit {
       this.fetchProductsWithPagination(0, 10);
     }
     if (this.chosenCategoryFromHome() > 0) {
-      this.filterProductsByCategory(this.chosenCategoryFromHome());
-      this.getCategoryNameById(this.chosenCategoryFromHome());
+      this.filterByCategory(this.chosenCategoryFromHome());
     }
   }
 
@@ -109,13 +112,47 @@ export class ProductsComponent implements OnInit {
     if (this.chosenCategoryFromHome() === 0 && this.categoryId === 0) {
       this.store.dispatch(loadProductsWithPagination({ offset, limit }));
 
-      this.store.select(getAllProductsWithPagination).subscribe((response) => {
-        if (response && response.length > 0) {
-          this.totalProducts.products = response;
-          // this.totalProducts.products.concat(response);
-          // this.products = this.products.concat(response);
-        }
-      });
+      this.productSubscription = this.store
+        .select(getAllProductsWithPagination)
+        .subscribe((response) => {
+          if (response && response.length > 0) {
+            this.totalProducts.products = response;
+            this.productSubscription.unsubscribe();
+          }
+        });
+    }
+  }
+
+  onScroll(categoryId: number) {
+    if (categoryId === 0) {
+      this.offset += 10;
+      this.store.dispatch(
+        loadProductsWithPagination({ offset: this.offset, limit: this.limit })
+      );
+      let subscription: Subscription;
+      subscription = this.store
+        .select(getAllProductsWithPagination)
+        .subscribe((response) => {
+          if (response && response.length > 0) {
+            const newProducts = response.filter(
+              (product) =>
+                !this.totalProducts.products.some(
+                  (existingProduct) => existingProduct.id === product.id
+                )
+            );
+            const updatedProducts = [
+              ...this.totalProducts.products,
+              ...newProducts,
+            ];
+            this.allLoadedProducts = updatedProducts;
+
+            this.totalProducts.products = updatedProducts;
+          }
+
+          if (subscription) {
+            subscription.unsubscribe();
+          }
+        });
     }
   }
 
@@ -125,16 +162,6 @@ export class ProductsComponent implements OnInit {
 
   sortByLowestPrice() {
     this.totalProducts.products.sort((a, b) => a.price - b.price);
-  }
-
-  filterProductsByCategory(categoryId: number) {
-    if (categoryId === 0) {
-      this.categoryId = 0;
-      this.totalProducts.products = this.products;
-    } else {
-      this.categoryId = categoryId;
-      this.filterProductsByCategory(categoryId);
-    }
   }
 
   filterByCategory(categoryId: number) {
@@ -162,21 +189,7 @@ export class ProductsComponent implements OnInit {
     this.categoryId = 0;
     this.service.setCategoryIdToZero();
     this.selectedCategory = 'All Categories';
-    this.filterProductsByCategory(0);
-  }
-
-  onScroll(categoryId: number) {
-    if (categoryId === 0) {
-      this.offset = this.offset + 10;
-
-      this.store.dispatch(
-        loadProductsWithPagination({ offset: this.offset, limit: this.limit })
-      );
-
-      this.store.select(getAllProductsWithPagination).subscribe((response) => {
-        this.products = response;
-      });
-    }
+    this.totalProducts.products = this.allLoadedProducts;
   }
 
   goToProductDetails(id: number) {
@@ -209,7 +222,6 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // Desuscribirse para evitar fugas de memoria
     if (this.categorySubscription) {
       this.categorySubscription.unsubscribe();
     }
