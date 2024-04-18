@@ -90,7 +90,7 @@
         </p>
       </div>
       <hr />
-      <button>Checkout</button>
+      <button (click)="gotToCheckout('checkout')">Checkout</button>
     </div>
   </div>
 </div>
@@ -102,4 +102,9 @@
     <latest-products />
   </div>
 </div>
+} @if(checkoutIsvisible){
+<div id="checkout">
+  <checkout />
+</div>
+
 }

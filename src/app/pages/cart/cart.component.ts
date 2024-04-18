@@ -11,9 +11,12 @@ import { CartItem } from '../../models/CartItem';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { LatestProductsComponent } from '../latest-products/latest-products.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { LatestProductsComponent } from '../../components/latest-products/latest-products.component';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { CheckoutComponent } from '../checkout/checkout.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cart',
@@ -24,13 +27,16 @@ import { AuthService } from '../../services/auth.service';
     NavbarComponent,
     MatDividerModule,
     LatestProductsComponent,
+    CheckoutComponent,
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
 export class CartComponent implements OnInit {
+  public checkoutIsvisible = false;
   public shipmentPrice!: number;
   public items: CartItem[] = [];
+  public targetId!: string;
 
   private store = inject(Store);
   private authService = inject(AuthService);
@@ -93,6 +99,17 @@ export class CartComponent implements OnInit {
     } else {
       return (this.shipmentPrice = 5);
     }
+  }
+
+  gotToCheckout(targetId: string) {
+    this.checkoutIsvisible = true;
+    setTimeout(() => {
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 500);
   }
 
   cleanString(str: string) {

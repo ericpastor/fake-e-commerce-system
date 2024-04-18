@@ -6,7 +6,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { authProfileGuard } from './guards/auth-profile.guard';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ProductsComponent } from './pages/products/products.component';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
   },
   {
     path: '**',

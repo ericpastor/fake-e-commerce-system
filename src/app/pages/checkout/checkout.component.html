@@ -1,0 +1,157 @@
+<div class="title">
+  <h1>Checkout</h1>
+  <hr />
+</div>
+<div class="checkout">
+  <div class="grid-checkout">
+    <div class="grid-checkout-item grid-checkout-item-1">
+      <h1>Delivery info</h1>
+      <form
+        (submit)="onSubmitDeliveryInfo($event)"
+        [formGroup]="deliveryInfoForm"
+      >
+        <div class="info">
+          <div class="grid-info">
+            <div class="grid-info-item grid-info-item-1">
+              <input
+                type="text"
+                placeholder="FirstName*"
+                formControlName="firstName"
+              />
+              @if (firstName?.invalid && (firstName?.dirty ||
+              firstName?.touched)) { @if(firstName?.errors?.['required']){
+              <span>Firstname is required</span>}}
+            </div>
+
+            <div class="grid-info-item grid-info-item-2">
+              <input
+                type="text"
+                placeholder="LastName*"
+                formControlName="lastName"
+              />
+              @if (lastName?.invalid && (lastName?.dirty || lastName?.touched))
+              { @if(lastName?.errors?.['required']){
+              <span>Lastname is required</span>}}
+            </div>
+
+            <div class="grid-info-item grid-info-item-3">
+              <input
+                type="text"
+                placeholder="Address*"
+                formControlName="address"
+              />
+              @if (address?.invalid && (address?.dirty || address?.touched)) {
+              @if(address?.errors?.['required']){
+              <span>Address is required</span>}}
+            </div>
+
+            <div class="grid-info-item grid-info-item-4">
+              <input
+                type="text"
+                placeholder="Postal Code*"
+                formControlName="postalCode"
+              />
+              @if (postalCode?.invalid && (postalCode?.dirty ||
+              postalCode?.touched)) { @if(postalCode?.errors?.['required']){
+              <span>Postal Code is required</span>}}
+            </div>
+
+            <div class="grid-info-item grid-info-item-5">
+              <input type="text" placeholder="City*" formControlName="city" />
+              @if (city?.invalid && (city?.dirty || city?.touched)) {
+              @if(city?.errors?.['required']){
+              <span>City is required</span>}}
+            </div>
+
+            <div class="grid-info-item grid-info-item-6">
+              <input
+                type="text"
+                placeholder="Country*"
+                formControlName="country"
+              />
+              @if (country?.invalid && (country?.dirty || country?.touched)) {
+              @if(country?.errors?.['required']){
+              <span>Country is required</span>}}
+            </div>
+            <div class="grid-info-item grid-info-item-7">
+              <input
+                type="text"
+                placeholder="Phone number*"
+                formControlName="phone"
+              />
+              @if (phone?.invalid && (phone?.dirty || phone?.touched)) {
+              @if(phone?.errors?.['required']){
+              <span>Phone number is required</span>}}
+            </div>
+            <div class="grid-info-item grid-info-item-8">
+              <button
+                class="login-button"
+                type="submit"
+                [disabled]="!deliveryInfoForm.valid"
+              >
+                Continue and Pay
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <div class="grid-checkout-item grid-checkout-item-2">
+        <h1>Payment</h1>
+        <form (submit)="onProceedToPay($event)" [formGroup]="paymentForm">
+          <div class="pay">
+            <div class="grid-pay">
+              <div class="grid-pay-item grid-pay-item-1">
+                <input
+                  type="text"
+                  placeholder="Same name in your credit card*"
+                  formControlName="nameInCard"
+                />
+                @if (nameInCard?.invalid && (nameInCard?.dirty ||
+                nameInCard?.touched)) { @if(nameInCard?.errors?.['required']){
+                <span>Full name is required</span>}}
+              </div>
+              <div class="grid-pay-item grid-pay-item-2">
+                <input
+                  type="text"
+                  placeholder="Card Number*"
+                  formControlName="cardNumber"
+                />
+                @if (cardNumber?.invalid && (cardNumber?.dirty ||
+                cardNumber?.touched)) { @if(cardNumber?.errors?.['required']){
+                <span>Card number is required</span>}}
+              </div>
+              <div class="grid-pay-item grid-pay-item-3">
+                <input
+                  type="text"
+                  placeholder="Expire Date*"
+                  formControlName="expireDate"
+                />
+                @if (expireDate?.invalid && (expireDate?.dirty ||
+                expireDate?.touched)) { @if(expireDate?.errors?.['required']){
+                <span>Expire date is required</span>}}
+              </div>
+              <div class="grid-pay-item grid-pay-item-4">
+                <input type="text" placeholder="CVC*" formControlName="cvc" />
+                @if (cvc?.invalid && (cvc?.dirty || cvc?.touched)) {
+                @if(cvc?.errors?.['required']){
+                <span>CVC is required</span>}}
+              </div>
+              <div class="grid-pay-item grid-pay-item-5">
+                <button
+                  class="login-button"
+                  type="submit"
+                  [disabled]="!paymentForm.valid"
+                >
+                  Pay
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

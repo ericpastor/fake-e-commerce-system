@@ -47,7 +47,9 @@
     class="grid-layout-item grid-layout-item-3"
   >
     <ul class="list">
-      @if ( this.totalProducts && this.totalProducts.products &&
+      @if(this.totalProducts.products.length === 0){
+      <h1>Sorry, but no products at this moment</h1>
+      } @if ( this.totalProducts && this.totalProducts.products &&
       this.totalProducts.products.length > 0 ){ @for(product of
       totalProducts.products; track product.id){ @if(product.id){
       <div class="grid-product" (click)="goToProductDetails(product.id)">

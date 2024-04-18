@@ -40,6 +40,24 @@ export const removeFromCartFail = createAction(
   props<{ errorMessage: string }>()
 );
 
+//EMPTY THE CART
+export const EMPTY_THE_CART = '[emptyTheCart] Empty the cart';
+export const EMPTY_THE_CART_SUCCESS = '[emptyTheCart] Empty the cart success';
+export const EMPTY_THE_CART_FAIL = '[emptyTheCart] Empty the cart fail';
+
+export const emptyTheCart = createAction(
+  EMPTY_THE_CART,
+  props<{ cartItems: CartItem[] }>()
+);
+export const emptyTheCartSuccess = createAction(
+  EMPTY_THE_CART_SUCCESS,
+  props<{ cartItems: CartItem[] }>()
+);
+export const emptyTheCartFail = createAction(
+  EMPTY_THE_CART_FAIL,
+  props<{ errorMessage: string }>()
+);
+
 //INCREMENT QUANTITY ITEM
 export const INCREMENT_QUANTITY = '[incrementQuantity] Increment quantity item';
 export const INCREMENT_QUANTITY_SUCCESS =

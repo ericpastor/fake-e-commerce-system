@@ -9,6 +9,7 @@ import {
 import {
   addToCart,
   decrementQuantity,
+  emptyTheCart,
   incrementQuantity,
   loadItemsFail,
   loadItemsSuccess,
@@ -66,6 +67,15 @@ export const cartReducer = createReducer(
     } else {
       return state;
     }
+  }),
+
+  on(emptyTheCart, (state, action) => {
+    const emptyCart = action.cartItems.slice(0, action.cartItems.length);
+    return {
+      ...state,
+      cartItems: emptyCart,
+      errorMessage: '',
+    };
   }),
 
   on(incrementQuantity, (state, action) => {

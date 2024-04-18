@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
+
+.checkout {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.grid-checkout {
+  display: grid;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin: 20px 20px 20px 20px;
+  grid-template-areas:
+    "box1 box1 box2 box2 "
+    "box1 box1 box2 box2 ";
+  place-items: center;
+}
+
+.grid-checkout-item {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 10px;
+}
+
+.grid-checkout-item-1 {
+  grid-area: box1;
+  overflow: hidden;
+  min-width: 75%;
+
+  .info {
+    align-self: flex-start;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .grid-info {
+    display: grid;
+    align-items: start;
+    width: 500px;
+    gap: 20px;
+    grid-template-areas:
+      "box1 box1 box1 box2 box2 box2"
+      "box3 box3 box3 box3 box3 box3"
+      "box4 box4 box4 box5 box5 box5"
+      "box6 box6 box6 box7 box7 box7"
+      "box8 box8 box8 box8 box8 box8";
+  }
+
+  .grid-info-item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 10px;
+  }
+
+  .grid-info-item-1 {
+    grid-area: box1;
+    gap: 3px;
+  }
+  .grid-info-item-2 {
+    grid-area: box2;
+    gap: 3px;
+  }
+  .grid-info-item-3 {
+    grid-area: box3;
+    gap: 3px;
+  }
+  .grid-info-item-4 {
+    grid-area: box4;
+    gap: 3px;
+  }
+  .grid-info-item-5 {
+    grid-area: box5;
+    gap: 3px;
+  }
+  .grid-info-item-6 {
+    grid-area: box6;
+    gap: 3px;
+  }
+  .grid-info-item-7 {
+    grid-area: box7;
+    gap: 3px;
+  }
+  .grid-info-item-8 {
+    grid-area: box8;
+  }
+}
+
+.grid-checkout-item-2 {
+  grid-area: box1;
+  overflow: hidden;
+  min-width: 75%;
+  .pay {
+    align-self: flex-start;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .grid-pay {
+    display: grid;
+    align-items: start;
+    width: 500px;
+    gap: 20px;
+    grid-template-areas:
+      "box1 box1 box1 box1 box1 box1"
+      "box2 box2 box2 box2 box2 box2"
+      "box3 box3 box3 box4 box4 box4"
+      "box5 box5 box5 box5 box5 box5";
+  }
+
+  .grid-pay-item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .grid-pay-item-1 {
+    grid-area: box1;
+    gap: 3px;
+  }
+  .grid-pay-item-2 {
+    grid-area: box2;
+    gap: 3px;
+  }
+  .grid-pay-item-3 {
+    grid-area: box3;
+    gap: 3px;
+  }
+  .grid-pay-item-4 {
+    grid-area: box4;
+    gap: 3px;
+  }
+  .grid-pay-item-5 {
+    grid-area: box5;
+    gap: 3px;
+  }
+}
+
+h1 {
+  font-family: "Tilt Warp", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 130%;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 35%;
+}
+input:focus {
+  outline: none;
+}
+
+input {
+  height: 30px;
+}
+.login-button {
+  font-family: "Tilt Warp", sans-serif;
+  font-optical-sizing: auto;
+  padding: 10px 15px;
+  font-weight: 100;
+  border: none;
+  border-radius: 1.5rem;
+  background: black;
+  color: white;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  &:hover {
+    background-color: rgb(241, 241, 241);
+    color: #191919;
+  }
+}
+
+.home-button {
+  font-family: "Tilt Warp", sans-serif;
+  font-optical-sizing: auto;
+  padding: 10px 15px;
+  font-weight: 100;
+  border: none;
+  border-radius: 1.5rem;
+  background: rgb(241, 241, 241);
+  color: #191919;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}
+span {
+  color: red;
+  font-size: xx-small;
+  // line-height: 0%;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  margin-top: 2%;
+}
+hr {
+  width: 70%;
+  margin: 30px 0 30px 0;
+  background-color: #a9a9a9;
+  height: 1px;
+}
