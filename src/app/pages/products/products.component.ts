@@ -25,6 +25,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommonModule } from '@angular/common';
 import { CategoriesService } from '../../services/categories.service';
 import { Subscription } from 'rxjs';
+import { PlaceholderProductsListComponent } from '../../placeholders/placeholder-products-list/placeholder-products-list.component';
+import { PlaceholderCategoryListComponent } from '../../placeholders/placeholder-category-list/placeholder-category-list.component';
 
 @Component({
   selector: 'products',
@@ -42,6 +44,8 @@ import { Subscription } from 'rxjs';
     CommonModule,
     MatButtonModule,
     MatMenuModule,
+    PlaceholderProductsListComponent,
+    PlaceholderCategoryListComponent,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',

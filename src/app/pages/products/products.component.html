@@ -21,6 +21,7 @@
     </mat-menu>
   </mat-toolbar>
 
+  @defer(on viewport){
   <section class="grid-layout-item grid-layout-item-2">
     <ul>
       <p (click)="resetFilters()">All Categories</p>
@@ -28,7 +29,7 @@
       @if(category.id){
 
       <li
-        (click)="titleCategory(category.name)"
+        (click)="titleCategory(category.name.split(' ').slice(0, 3).join(''))"
         (click)="filterByCategory(category.id)"
       >
         {{ category.name }}
@@ -36,8 +37,13 @@
       } }
     </ul>
   </section>
-
-  @if(totalIsActive){
+  }@placeholder {
+  <placeholder-category-list />
+  }@loading (minimum 1s) {
+  <placeholder-category-list />
+  }@error {
+  <p>Failed to load lis of categories name</p>
+  } @defer (on viewport){ @if(totalIsActive){
   <section
     infiniteScroll
     [infiniteScrollDistance]="2"
@@ -74,7 +80,7 @@
           </div>
         </div>
         <p class="grid-product-item grid-product-item-2">
-          {{ product.title }}
+          {{ product.title.split(" ").slice(0, 4).join(" ") }}
         </p>
         <p class="grid-product-item grid-product-item-3">
           {{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}
@@ -83,5 +89,21 @@
       } }}
     </ul>
   </section>
+  } }@placeholder() {
+  <div class="grid-layout-item grid-layout-item-3">
+    <ul class="list">
+      <placeholder-products-list />
+    </ul>
+  </div>
+
+  }@loading(minimum 1s) {
+  <div class="grid-layout-item grid-layout-item-3">
+    <ul class="list">
+      <placeholder-products-list />
+    </ul>
+  </div>
+
+  }@error {
+  <p>FAILED TO LOAD PRODUCTS</p>
   }
 </div>
