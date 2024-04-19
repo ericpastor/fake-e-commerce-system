@@ -64,7 +64,6 @@ export class SearchComponent {
         this.productsFound = this.productsToFilter.products.filter((p) =>
           p.title.toLocaleLowerCase().includes(value.title!.toLocaleLowerCase())
         );
-        console.log('Productos encontrados:', this.productsFound);
         this.dialogOpenState = true;
       }
     });

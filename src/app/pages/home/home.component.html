@@ -8,12 +8,11 @@
     </div>
   </div>
 </div>
-
 @defer (on viewport){
 <newest-product />
 }@placeholder {
 <placeholder-newest-product />
-}@loading(minimum 1s) {
+}@loading(minimum 0.25s) {
 <placeholder-newest-product />
 }@error {
 <p>FAILED TO LOAD NEWEST PRODUCT</p>

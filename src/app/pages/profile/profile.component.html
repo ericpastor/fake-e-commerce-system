@@ -1,1 +1,21 @@
-<p>profile works!</p>
+@defer(on viewport){
+<div class="profile">
+  <button class="back-home-button" (click)="goHome()">Back to Home Page</button>
+  <h1>Your Profile</h1>
+  <div
+    class="avatar"
+    [style.background-image]="
+      userProfile.avatar ? 'url(' + userProfile.avatar + ')' : 'none'
+    "
+  ></div>
+  <p>{{ userProfile.name }}</p>
+  <p>{{ userProfile.email }}</p>
+  <p>{{ userProfile.role }}</p>
+</div>
+}@placeholder (minimum 1s) {
+<placeholder-profile />
+}@loading {
+<placeholder-profile />
+}@error {
+<h1>Something went wrong displaying your profile</h1>
+}

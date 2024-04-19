@@ -12,6 +12,8 @@ import {
 } from './Category/Category.Reducer';
 import { CartModel } from '../models/CartItem';
 import { cartReducer } from './Cart/Cart.Reducer';
+import { UserByIdModel, UserModel } from '../models/User';
+import { userByIdReducer, userReducer } from './User/User.Reducer';
 
 export interface AppState {
   allProducts: ProductModel;
@@ -19,6 +21,8 @@ export interface AppState {
   productById: ProductByIdModel;
   categories: CategoryModel;
   categoryById: CategoryByIdModel;
+  users: UserModel;
+  userById: UserByIdModel;
   cartItems: CartModel;
 }
 
@@ -28,5 +32,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   productById: productByIdReducer,
   categories: categoryReducer,
   categoryById: categoryByIdReducer,
+  users: userReducer,
+  userById: userByIdReducer,
   cartItems: cartReducer,
 };
