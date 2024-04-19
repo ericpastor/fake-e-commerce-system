@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CartItem } from '../../models/CartItem';
 import {
@@ -25,8 +25,10 @@ import { getItems } from '../../store/Cart/Cart.Selector';
   styleUrl: './checkout.component.scss',
 })
 export class CheckoutComponent {
+  public totalToPay = input<number>();
   public deliveryInfoFilled = false;
   public items: CartItem[] = [];
+  public targetId!: string;
 
   private store = inject(Store);
 
@@ -106,5 +108,14 @@ export class CheckoutComponent {
   }
   removeItem(item: CartItem) {
     this.store.dispatch(removeFromCart({ cartItem: item }));
+  }
+  gotToCart(targetId: string) {
+    setTimeout(() => {
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 500);
   }
 }

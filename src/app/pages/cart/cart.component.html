@@ -1,6 +1,6 @@
 <navbar />
 @if(getQuantityOfItems()>0){
-<div class="cart">
+<div id="cart" class="cart">
   <div class="grid-cart">
     <div class="grid-cart-item grid-cart-item-1">
       @for (item of items; track item.product.id) {
@@ -104,7 +104,7 @@
 </div>
 } @if(checkoutIsvisible){
 <div id="checkout">
-  <checkout />
+  <checkout [totalToPay]="getTotalPlusShipment()" />
 </div>
 
 }

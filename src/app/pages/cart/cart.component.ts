@@ -15,7 +15,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { LatestProductsComponent } from '../../components/latest-products/latest-products.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { CheckoutComponent } from '../checkout/checkout.component';
+import { CheckoutComponent } from '../../components/checkout/checkout.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

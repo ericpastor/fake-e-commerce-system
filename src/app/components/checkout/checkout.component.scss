@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
 
-@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
-
 .checkout {
   align-self: center;
   display: flex;
@@ -116,34 +114,47 @@
       "box1 box1 box1 box1 box1 box1"
       "box2 box2 box2 box2 box2 box2"
       "box3 box3 box3 box4 box4 box4"
-      "box5 box5 box5 box5 box5 box5";
+      "box5 box5 box5 box5 box5 box5"
+      "box6 box6 box6 box6 box6 box6";
   }
 
   .grid-pay-item {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    gap: 10px;
+    margin-top: 5px;
   }
 
   .grid-pay-item-1 {
     grid-area: box1;
-    gap: 3px;
   }
   .grid-pay-item-2 {
     grid-area: box2;
-    gap: 3px;
   }
   .grid-pay-item-3 {
     grid-area: box3;
-    gap: 3px;
   }
   .grid-pay-item-4 {
     grid-area: box4;
-    gap: 3px;
   }
   .grid-pay-item-5 {
     grid-area: box5;
-    gap: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: baseline;
+    align-items: center;
+    border: #191919 solid 1.5px;
+    height: 70px;
+    p {
+      font-family: "Tilt Warp", sans-serif;
+      margin: 0;
+    }
+  }
+  .grid-pay-item-6 {
+    grid-area: box6;
+    gap: 1px;
   }
 }
 

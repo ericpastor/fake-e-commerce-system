@@ -7,7 +7,7 @@ import { authProfileGuard } from './guards/auth-profile.guard';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CartComponent } from './pages/cart/cart.component';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 export const routes: Routes = [
   {

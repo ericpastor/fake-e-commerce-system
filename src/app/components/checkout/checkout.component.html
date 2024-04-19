@@ -140,6 +140,19 @@
                 <span>CVC is required</span>}}
               </div>
               <div class="grid-pay-item grid-pay-item-5">
+                <p>
+                  Total amount:
+                  {{ totalToPay() | currency : "EUR" : "symbol" : "1.2-2" }}
+                </p>
+                <button
+                  type="button"
+                  class="login-button"
+                  (click)="gotToCart('cart')"
+                >
+                  Modify your cart
+                </button>
+              </div>
+              <div class="grid-pay-item grid-pay-item-6">
                 <button
                   class="login-button"
                   type="submit"
