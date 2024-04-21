@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'login',
@@ -21,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  private toastr = inject(ToastrService);
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -34,6 +36,10 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
+  showSuccess() {
+    this.toastr.info('Nice to see you again!', 'Logged in!');
+  }
+
   login(event: Event) {
     event.preventDefault();
     this.authService
@@ -42,7 +48,7 @@ export class LoginComponent {
         password: this.password!.value!,
       })
       .subscribe(() => {
-        alert('Logged in!');
+        this.showSuccess();
         this.router.navigate(['/']);
       });
   }

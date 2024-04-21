@@ -12,6 +12,7 @@ import { ProductEffects } from './store/Product/Product.Effects';
 import { appReducers } from './store/app.store';
 import { CategoryEffects } from './store/Category/Category.Effects';
 import { cartItemsMetaReducer } from './store/Cart/Cart.Reducer';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +24,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects([ProductEffects, CategoryEffects]),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideToastr(),
   ],
 };

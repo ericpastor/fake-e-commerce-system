@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { getItems } from '../../store/Cart/Cart.Selector';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'checkout',
@@ -31,6 +32,7 @@ export class CheckoutComponent {
   public targetId!: string;
 
   private store = inject(Store);
+  private toaster = inject(ToastrService);
 
   deliveryInfoForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -100,10 +102,13 @@ export class CheckoutComponent {
     event.preventDefault();
     if (this.deliveryInfoFilled) {
       this.store.dispatch(emptyTheCart({ cartItems: this.items }));
-      alert('Fake payment done! Check the cart if is empty!');
+      this.toaster.success('Check if the cart is empty!', 'Fake payment done!');
     }
     if (!this.deliveryInfoFilled) {
-      alert('hola');
+      this.toaster.error(
+        'Complete delivery section first, please',
+        'Delivery info required'
+      );
     }
   }
   removeItem(item: CartItem) {
