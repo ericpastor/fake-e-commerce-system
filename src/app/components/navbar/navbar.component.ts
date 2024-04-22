@@ -19,6 +19,7 @@ import { DialogShipmentFreeComponent } from '../../dialogs/dialog-shipment-free/
 import { MatDialog } from '@angular/material/dialog';
 import { DialogContactUsComponent } from '../../dialogs/dialog-contact-us/dialog-contact-us.component';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'navbar',
@@ -56,17 +57,24 @@ export class NavbarComponent implements ControlValueAccessor {
   public items: CartItem[] = [];
   public hidden = true;
   public targetId!: string;
+  userProfile!: User;
 
   private store = inject(Store);
-
-  ngOnInit(): void {
-    this.getItemsInCart();
-  }
-
   private authService = inject(AuthService);
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private toastr = inject(ToastrService);
+
+  ngOnInit(): void {
+    this.getItemsInCart();
+    this.getProfile();
+  }
+
+  getProfile() {
+    this.authService.getProfile().subscribe((res) => {
+      this.userProfile = res as User;
+    });
+  }
 
   openShipDialog() {
     this.dialog.open(DialogShipmentFreeComponent);

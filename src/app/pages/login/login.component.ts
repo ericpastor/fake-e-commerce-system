@@ -11,6 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'login',
@@ -20,8 +21,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  authService = inject(AuthService);
-  router = inject(Router);
+  public userProfile!: User;
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
   private toastr = inject(ToastrService);
 
   loginForm = new FormGroup({
@@ -36,10 +39,6 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  showSuccess() {
-    this.toastr.info('Nice to see you again!', 'Logged in!');
-  }
-
   login(event: Event) {
     event.preventDefault();
     this.authService
@@ -48,9 +47,19 @@ export class LoginComponent {
         password: this.password!.value!,
       })
       .subscribe(() => {
+        this.authService.getProfile().subscribe((res) => {
+          this.userProfile = res as User;
+        });
         this.showSuccess();
         this.router.navigate(['/']);
       });
+  }
+
+  showSuccess() {
+    this.toastr.info(
+      `Nice to see you again, ${this.userProfile.name}!`,
+      'Logged in!'
+    );
   }
 
   goHome() {
