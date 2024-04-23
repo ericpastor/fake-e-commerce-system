@@ -1,4 +1,13 @@
-<h2 mat-dialog-title>Looking for free shipment?</h2>
+@if(loggedIn()){
+<h2 mat-dialog-title>You are already a member</h2>
+<mat-dialog-content
+  >Continue exploring and purchasing with free shipping</mat-dialog-content
+>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+}@else{
+<h2 mat-dialog-title>Looking for free shipping?</h2>
 <mat-dialog-content
   >Login and all shipments will be free of charge!</mat-dialog-content
 >
@@ -8,3 +17,4 @@
     Login
   </button>
 </mat-dialog-actions>
+}

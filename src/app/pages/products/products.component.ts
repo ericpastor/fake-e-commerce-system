@@ -80,11 +80,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.fetchCategories();
     this.getChosenCategoryFromHome();
-    if (
-      this.chosenCategoryFromHome() === 0 &&
-      this.categoryId === 0 &&
-      this.selectedCategory !== 'All Categories'
-    ) {
+    if (this.chosenCategoryFromHome() === 0 && this.categoryId === 0) {
       this.fetchProductsWithPagination(0, 10);
     }
     if (this.chosenCategoryFromHome() > 0) {
@@ -128,8 +124,8 @@ export class ProductsComponent implements OnInit {
   }
 
   onScroll(categoryId: number) {
+    this.offset += 10;
     if (categoryId === 0) {
-      this.offset += 10;
       this.store.dispatch(
         loadProductsWithPagination({ offset: this.offset, limit: this.limit })
       );
@@ -169,7 +165,6 @@ export class ProductsComponent implements OnInit {
   }
 
   filterByCategory(categoryId: number) {
-    this.totalProducts.products = [];
     this.service.setCategoryIdToZero();
     this.store.dispatch(loadAllProducts());
     this.categoryId = categoryId;
@@ -193,7 +188,9 @@ export class ProductsComponent implements OnInit {
     this.categoryId = 0;
     this.service.setCategoryIdToZero();
     this.selectedCategory = 'All Categories';
-    this.totalProducts.products = this.allLoadedProducts;
+    if (this.chosenCategoryFromHome() === 0 && this.categoryId === 0) {
+      this.fetchProductsWithPagination(0, 10);
+    }
   }
 
   goToProductDetails(id: number) {

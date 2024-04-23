@@ -50,16 +50,13 @@ export class LoginComponent {
         this.authService.getProfile().subscribe((res) => {
           this.userProfile = res as User;
         });
-        this.showSuccess();
         this.router.navigate(['/']);
       });
+    this.showSuccess();
   }
 
   showSuccess() {
-    this.toastr.info(
-      `Nice to see you again, ${this.userProfile.name}!`,
-      'Logged in!'
-    );
+    this.toastr.info(`Welcome!`, 'Logged in!');
   }
 
   goHome() {

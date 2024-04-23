@@ -43,7 +43,7 @@
   <placeholder-category-list />
   }@error {
   <p>Failed to load lis of categories name</p>
-  } @defer (on viewport){ @if(totalIsActive){
+  }
   <section
     infiniteScroll
     [infiniteScrollDistance]="2"
@@ -53,6 +53,7 @@
     class="grid-layout-item grid-layout-item-3"
   >
     <ul class="list">
+      @defer (on viewport){ @if(totalIsActive){
       @if(this.totalProducts.products.length === 0){
       <h1>Sorry, but no products at this moment</h1>
       } @if ( this.totalProducts && this.totalProducts.products &&
@@ -86,24 +87,23 @@
           {{ product.price | currency : "EUR" : "symbol" : "1.2-2" }}
         </p>
       </div>
-      } }}
+      } }} } }@placeholder() {
+      <div class="grid-layout-item grid-layout-item-3">
+        <ul class="list">
+          <placeholder-products-list />
+        </ul>
+      </div>
+
+      }@loading(minimum 1s) {
+      <div class="grid-layout-item grid-layout-item-3">
+        <ul class="list">
+          <placeholder-products-list />
+        </ul>
+      </div>
+
+      }@error {
+      <p>FAILED TO LOAD PRODUCTS</p>
+      }
     </ul>
   </section>
-  } }@placeholder() {
-  <div class="grid-layout-item grid-layout-item-3">
-    <ul class="list">
-      <placeholder-products-list />
-    </ul>
-  </div>
-
-  }@loading(minimum 1s) {
-  <div class="grid-layout-item grid-layout-item-3">
-    <ul class="list">
-      <placeholder-products-list />
-    </ul>
-  </div>
-
-  }@error {
-  <p>FAILED TO LOAD PRODUCTS</p>
-  }
 </div>

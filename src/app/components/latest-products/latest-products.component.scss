@@ -86,6 +86,7 @@ swiper-slide:first-child {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
   align-items: center;
   h1 {
     font-family: "Tilt Warp", sans-serif;
@@ -95,6 +96,7 @@ swiper-slide:first-child {
     margin-bottom: 40px;
     line-height: 100%;
     text-align: center;
+    align-self: center;
   }
   hr {
     width: 90%;

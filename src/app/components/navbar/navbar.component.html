@@ -2,11 +2,13 @@
   <button mat-icon-button class="example-button" (click)="openShipDialog()">
     <mat-icon @zoomin> directions_boat </mat-icon>
   </button>
-  @if(userProfile){
+  @if(userProfile && userProfile.name !==''){
   <p>Hi, {{ userProfile.name }}!</p>
   }
   <span class="second-spacer"></span>
   <div class="pre-toolbar-links">
+    @if(userProfile && userProfile.role === admin){
+    <a mat-button (click)="goHome()" target="_blank">Dashboard</a>}
     <a mat-button (click)="goHome()" target="_blank">Home</a>
     <a mat-button (click)="openContactUsDialog()">Contact us</a>
     @if(loggedIn()){

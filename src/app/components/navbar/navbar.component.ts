@@ -19,7 +19,7 @@ import { DialogShipmentFreeComponent } from '../../dialogs/dialog-shipment-free/
 import { MatDialog } from '@angular/material/dialog';
 import { DialogContactUsComponent } from '../../dialogs/dialog-contact-us/dialog-contact-us.component';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../../models/User';
+import { Role, User } from '../../models/User';
 
 @Component({
   selector: 'navbar',
@@ -58,6 +58,7 @@ export class NavbarComponent implements ControlValueAccessor {
   public hidden = true;
   public targetId!: string;
   userProfile!: User;
+  admin = Role.ADMIN
 
   private store = inject(Store);
   private authService = inject(AuthService);
@@ -67,7 +68,9 @@ export class NavbarComponent implements ControlValueAccessor {
 
   ngOnInit(): void {
     this.getItemsInCart();
-    this.getProfile();
+    if (this.loggedIn()) {
+      this.getProfile();
+    }
   }
 
   getProfile() {
@@ -138,6 +141,13 @@ export class NavbarComponent implements ControlValueAccessor {
   }
 
   public logout() {
+    this.userProfile = {
+      name: '',
+      role: Role.CUSTOMER,
+      avatar: '',
+      email: '',
+      password: '',
+    };
     this.authService.logout();
     this.toastr.info('Good Bye!', 'Logged out!');
   }
