@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { productByIdState, productState } from './Product.State';
 import {
+  addProduct,
   loadAllProductsFail,
   loadAllProductsSuccess,
   loadProductByIdFail,
@@ -8,6 +9,7 @@ import {
   loadProductsWithPaginationFail,
   loadProductsWithPaginationSuccess,
 } from './Product.Actions';
+import { state } from '@angular/animations';
 
 export const allProducts = createReducer(
   productState,
@@ -61,6 +63,17 @@ export const productByIdReducer = createReducer(
     return {
       ...state,
       errorMessage: action.errorMessage,
+    };
+  })
+);
+
+export const productReducer = createReducer(
+  productState,
+  on(addProduct, (state, action) => {
+    const product = action.productInput;
+    return {
+      ...state,
+      products: [...state.products, product],
     };
   })
 );

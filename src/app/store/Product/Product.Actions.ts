@@ -1,6 +1,17 @@
 import { createAction, props } from '@ngrx/store';
 import { Product } from '../../models/Product';
 
+//ADD PRODUCT
+
+export const ADD_PRODUCT = '[addProduct] add product';
+// export const ADD_PRODUCT_SUCCESS = '[addProduct] add product success'
+// export const ADD_PRODUCT_FAIL = '[addProduct] add product fail'
+
+export const addProduct = createAction(
+  ADD_PRODUCT,
+  props<{ productInput: Product }>()
+);
+
 // LOAD ALL PRODUCTS
 export const LOAD_ALL_PRODUCTS = '[allProducts] load products';
 export const LOAD_ALL_PRODUCTS_SUCCESS = '[allProducts] load products success';

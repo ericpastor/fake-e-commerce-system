@@ -57,8 +57,8 @@ export class NavbarComponent implements ControlValueAccessor {
   public items: CartItem[] = [];
   public hidden = true;
   public targetId!: string;
-  userProfile!: User;
-  admin = Role.ADMIN
+  public userProfile!: User;
+  public admin = Role.ADMIN;
 
   private store = inject(Store);
   private authService = inject(AuthService);
@@ -138,6 +138,10 @@ export class NavbarComponent implements ControlValueAccessor {
 
   goToProducts() {
     this.router.navigate(['products']);
+  }
+
+  goToDashboard() {
+    this.router.navigate(['dashboard']);
   }
 
   public logout() {
