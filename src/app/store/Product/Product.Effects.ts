@@ -2,6 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductsService } from '../../services/products.service';
 import {
+  addProduct,
+  addProductFail,
+  addProductSuccess,
   loadAllProducts,
   loadAllProductsFail,
   loadAllProductsSuccess,
@@ -59,6 +62,20 @@ export class ProductEffects {
           map((product) => loadProductByIdSuccess({ product })),
           catchError((error) =>
             of(loadProductByIdFail({ errorMessage: error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  addProduct = createEffect(() =>
+    this.action.pipe(
+      ofType(addProduct),
+      exhaustMap((action) =>
+        this.productsService.createProduct(action.productInput).pipe(
+          map((product) => addProductSuccess({ product })),
+          catchError((error) =>
+            of(addProductFail({ errorMessage: error.message }))
           )
         )
       )

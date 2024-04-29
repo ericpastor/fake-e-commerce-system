@@ -1,5 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ProductByIdModel, ProductModel } from '../../models/Product';
+import { Product, ProductByIdModel, ProductModel } from '../../models/Product';
+
+const addProductState = createFeatureSelector<Product>('addProduct');
 
 const getProductState = createFeatureSelector<ProductModel>('allProducts');
 
@@ -8,6 +10,10 @@ const getProductStateWithPagination = createFeatureSelector<ProductModel>(
 );
 const getProductByIdState =
   createFeatureSelector<ProductByIdModel>('productById');
+
+export const addProduct = createSelector(addProductState, (state) => {
+  return state;
+});
 
 export const getAllProducts = createSelector(getProductState, (state) => {
   return state;
@@ -23,5 +29,3 @@ export const getAllProductsWithPagination = createSelector(
 export const getProductById = createSelector(getProductByIdState, (state) => {
   return state.product;
 });
-
-

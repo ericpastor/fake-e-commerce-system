@@ -4,12 +4,20 @@ import { Product } from '../../models/Product';
 //ADD PRODUCT
 
 export const ADD_PRODUCT = '[addProduct] add product';
-// export const ADD_PRODUCT_SUCCESS = '[addProduct] add product success'
-// export const ADD_PRODUCT_FAIL = '[addProduct] add product fail'
+export const ADD_PRODUCT_SUCCESS = '[addProduct] add product success';
+export const ADD_PRODUCT_FAIL = '[addProduct] add product fail';
 
 export const addProduct = createAction(
   ADD_PRODUCT,
   props<{ productInput: Product }>()
+);
+export const addProductSuccess = createAction(
+  ADD_PRODUCT,
+  props<{ product: Product }>()
+);
+export const addProductFail = createAction(
+  ADD_PRODUCT,
+  props<{ errorMessage: string }>()
 );
 
 // LOAD ALL PRODUCTS

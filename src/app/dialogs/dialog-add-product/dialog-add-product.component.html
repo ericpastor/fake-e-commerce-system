@@ -1,0 +1,78 @@
+<mat-dialog-content>
+  <div class="grid-checkout-item grid-checkout-item-1">
+    <h1>New product</h1>
+    <form (submit)="onSubmitAddingProduct($event)" [formGroup]="addProductForm">
+      <div class="info">
+        <div class="grid-info">
+          <div class="grid-info-item grid-info-item-1">
+            <label>Title:</label>
+            <input type="text" placeholder="Title*" formControlName="title" />
+            @if (title?.invalid && (title?.dirty || title?.touched)) {
+            @if(title?.errors?.['required']){
+            <span>Title is required</span>}}
+          </div>
+
+          <div class="grid-info-item grid-info-item-2">
+            <label>Category Id:</label>
+            <input type="text" formControlName="categoryId" />
+            @if (categoryId?.invalid && (categoryId?.dirty ||
+            categoryId?.touched)) { @if(categoryId?.errors?.['required']){
+            <span>Category id is required</span>}}
+          </div>
+
+          <div class="grid-info-item grid-info-item-3">
+            <label>Price:</label>
+            <input type="text" placeholder="Price*" formControlName="price" />
+            @if (price?.invalid && (price?.dirty || price?.touched)) {
+            @if(price?.errors?.['required']){
+            <span>Price is required</span>}}
+          </div>
+
+          <div class="grid-info-item grid-info-item-4">
+            <label>Description:</label>
+            <textarea type="text" formControlName="description"></textarea>
+            @if (description?.invalid && (description?.dirty ||
+            description?.touched)) { @if(description?.errors?.['required']){
+            <span>Description is required</span>}}
+          </div>
+          <div class="grid-info-item grid-info-item-5 items-5">
+            <div
+              *ngFor="
+                let image of imagesArray.controls;
+                last as isLast;
+                index as idx
+              "
+            >
+              <label>Image:</label>
+              <input type="text" [formControl]="image" />
+              <button
+                class="plus-and-minus minus"
+                color="warn"
+                (click)="removeInputControl(idx)"
+                *ngIf="imagesArray.length > 1"
+              >
+                -
+              </button>
+
+              <button
+                class="plus-and-minus plus"
+                color="primary"
+                *ngIf="isLast"
+                (click)="addInputControl()"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="grid-info-item grid-info-item-6">
+            <button class="login-button" type="submit">Add New Product</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

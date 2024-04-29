@@ -1,6 +1,7 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { ProductByIdModel, ProductModel } from '../models/Product';
+import { Product, ProductByIdModel, ProductModel } from '../models/Product';
 import {
+  addProductReducer,
   allProducts,
   productByIdReducer,
   productsWithPaginationReducer,
@@ -16,6 +17,7 @@ import { UserByIdModel, UserModel } from '../models/User';
 import { userByIdReducer, userReducer } from './User/User.Reducer';
 
 export interface AppState {
+  addProduct: ProductModel;
   allProducts: ProductModel;
   productsWithPagination: ProductModel;
   productById: ProductByIdModel;
@@ -27,6 +29,7 @@ export interface AppState {
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
+  addProduct: addProductReducer,
   allProducts: allProducts,
   productsWithPagination: productsWithPaginationReducer,
   productById: productByIdReducer,

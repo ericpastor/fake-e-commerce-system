@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Dela+Gothic+One&family=Tilt+Warp&display=swap");
+
+p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  font-size: 15px;
+  margin: 0 0 0 10px;
+}
+.first-spacer {
+  flex: 1 1 auto;
+}
+
+.second-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+  background-color: rgb(255, 255, 255);
+  padding: 0 40px;
+}
+
+.pre-toolbar {
+  background-color: rgb(237, 238, 240);
+  padding: 0 40px;
+  font-size: 1em;
+  a {
+    font-size: x-small;
+    align-self: flex-end;
+  }
+}

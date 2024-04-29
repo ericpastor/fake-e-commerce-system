@@ -171,7 +171,7 @@ export class ProductsComponent implements OnInit {
     this.store.select(getAllProducts).subscribe((response) => {
       if (categoryId) {
         this.filteredProducts.products = response.products.filter(
-          (p) => p.category.id === categoryId
+          (p) => p.category?.id === categoryId
         );
       }
       if (

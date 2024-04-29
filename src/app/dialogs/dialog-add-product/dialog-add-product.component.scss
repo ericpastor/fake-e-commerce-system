@@ -1,0 +1,133 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: center;
+  justify-items: center;
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: start;
+    align-items: center;
+    h2 {
+      margin: 0px;
+    }
+    p {
+      margin: 0px;
+    }
+  }
+}
+.grid-checkout-item-1 {
+  grid-area: box1;
+  overflow: hidden;
+  min-width: 75%;
+  h1 {
+    font-family: "Tilt Warp", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 130%;
+    text-align: center;
+  }
+
+  .info {
+    align-self: flex-start;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .grid-info {
+    display: grid;
+    align-items: start;
+    width: 500px;
+    gap: 20px;
+    grid-template-areas:
+      "box1 box1 box1 box1 box1 box1"
+      "box2 box2 box2 box3 box3 box3"
+      "box4 box4 box4 box4 box4 box4"
+      "box5 box5 box5 box5 box5 box5"
+      "box6 box6 box6 box6 box6 box6";
+  }
+
+  .grid-info-item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 10px;
+    input:focus {
+      outline: none;
+    }
+    span {
+      color: red;
+      font-size: xx-small;
+    }
+  }
+
+  .grid-info-item-1 {
+    grid-area: box1;
+    gap: 3px;
+  }
+  .grid-info-item-2 {
+    grid-area: box2;
+    gap: 3px;
+  }
+  .grid-info-item-3 {
+    grid-area: box3;
+    gap: 3px;
+  }
+  .grid-info-item-4 {
+    grid-area: box4;
+    gap: 3px;
+  }
+  .grid-info-item-5 {
+    grid-area: box5;
+    label {
+      margin-right: 5px;
+    }
+
+    input {
+      width: 70%;
+      margin-right: 5px;
+    }
+    .plus-and-minus {
+      border-radius: 100%;
+      border-width: 0;
+      transition-duration: 0.4s;
+      margin-right: 5px;
+    }
+    .minus:hover {
+      background-color: red;
+      color: white;
+    }
+    .plus:hover {
+      background-color: rgb(0, 157, 255);
+      color: white;
+    }
+  }
+
+  .grid-info-item-6 {
+    grid-area: box6;
+    gap: 3px;
+    button {
+      font-family: "Tilt Warp", sans-serif;
+      font-optical-sizing: auto;
+      padding: 10px 15px;
+      font-weight: 100;
+      border: none;
+      border-radius: 1.5rem;
+      background: black;
+      color: white;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition-duration: 0.4s;
+      &:hover {
+        background-color: rgb(241, 241, 241);
+        color: #191919;
+      }
+    }
+  }
+}

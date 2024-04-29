@@ -1,1 +1,24 @@
-<p>dashboard works!</p>
+<mat-toolbar class="pre-toolbar">
+  <button
+    mat-icon-button
+    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+    class="example-button"
+    (click)="goHome()"
+  >
+    <mat-icon> shopping_bag </mat-icon>
+  </button>
+  <span class="name">Fakee-commerce</span>
+  @if(userProfile && userProfile.name !==''){
+  <p>Hi, {{ userProfile.name }}!</p>
+  }
+  <span class="second-spacer"></span>
+  <div class="pre-toolbar-links">
+    <a mat-button (click)="goHome()" target="_blank">Home</a>
+    <a mat-button (click)="goHome()" target="_blank">Categories</a>
+    <a mat-button (click)="goHome()" target="_blank">Add category</a>
+    <a mat-button (click)="goHome()" target="_blank">Products</a>
+    <a mat-button (click)="openAddProduct()">Add product</a>
+    <a mat-button (click)="goHome()" target="_blank">Users</a>
+    <a mat-button (click)="logout()">Logout</a>
+  </div>
+</mat-toolbar>
