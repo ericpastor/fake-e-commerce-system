@@ -1,4 +1,4 @@
-name: Angular-CI
+name: fake-e-commerce-system-CI
 
 # Controls when the workflow will run
 on:
